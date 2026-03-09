@@ -13,14 +13,14 @@ export default defineConfig([
       "src/generated/**",
       "build/**",
       "coverage/**",
-      "*.config.js",
+      "*.config.js"
     ],
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
     plugins: { prettier: prettierPlugin },
     languageOptions: {
       globals: globals.node,
       parser: tseslint.parser,
-      parserOptions: { ecmaVersion: "latest", sourceType: "module" },
+      parserOptions: { ecmaVersion: "latest", sourceType: "module" }
     },
     rules: {
       ...js.configs.recommended.rules,
@@ -29,13 +29,13 @@ export default defineConfig([
       "no-console": "error",
       "no-unused-vars": [
         "error",
-        { args: "after-used", argsIgnorePattern: "^_" },
+        { args: "after-used", argsIgnorePattern: "^_" }
       ],
-      "prettier/prettier": "warn",
+      "prettier/prettier": "warn"
     },
     linterOptions: {
-      reportUnusedDisableDirectives: true,
-    },
+      reportUnusedDisableDirectives: true
+    }
   },
-  prettierConfig,
+  prettierConfig
 ]);

@@ -1,0 +1,9 @@
+node_modules
+build
+coverage
+.git
+.gitignore
+.vscode
+.env
+.env.*
+README.md
