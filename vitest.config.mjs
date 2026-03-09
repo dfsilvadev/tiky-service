@@ -17,7 +17,7 @@ export default defineConfig({
         "src/utils/logger.js",
         "src/database/**"
       ],
-      reporter: ["text", "json", "html"],
+      reporter: ["text", "json", "html", "lcov"],
       include: ["src/**/*.ts"]
     },
     projects: [
