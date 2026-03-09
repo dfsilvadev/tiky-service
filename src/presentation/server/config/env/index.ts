@@ -7,6 +7,9 @@ const SECONDS_IN_MINUTE = 60;
 const MINUTES_IN_HOUR = 60;
 const HOURS_IN_DAY = 24;
 const SALT_ROUNDS = 10;
+const HTTP_PROTOCOL = "http";
+const HTTPS_PROTOCOL = "https";
+const LOCALHOST_CORS_PORTS = ["3000", "3002", "5173"];
 
 const envSchema = z.object({
   PORT: z.coerce.number().default(3000),
@@ -31,12 +34,7 @@ const envSchema = z.object({
       (url) => url.startsWith("postgresql://") || url.startsWith("postgres://"),
       "DATABASE_URL must start with postgresql:// or postgres://"
     ),
-  CORS_ORIGINS: z
-    .string()
-    .default(
-      "http://localhost:3000,http://localhost:3002,http://localhost:5173"
-    )
-    .transform((str) => str.split(",").map((s) => s.trim()))
+  CORS_ORIGINS: z.string().optional()
 });
 
 const _env = envSchema.safeParse(process.env);
@@ -49,4 +47,24 @@ if (!_env.success) {
   );
 }
 
-export const env = _env.data;
+const localDefaultProtocol =
+  _env.data.NODE_ENV === "production" ? HTTPS_PROTOCOL : HTTP_PROTOCOL;
+const defaultCorsOrigins = LOCALHOST_CORS_PORTS.map(
+  (port) => `${localDefaultProtocol}://localhost:${port}`
+);
+
+const corsOrigins = _env.data.CORS_ORIGINS
+  ? _env.data.CORS_ORIGINS.split(",").map((origin) => origin.trim())
+  : defaultCorsOrigins;
+
+if (
+  _env.data.NODE_ENV === "production" &&
+  corsOrigins.some((origin) => !origin.startsWith(`${HTTPS_PROTOCOL}://`))
+) {
+  throw new Error("CORS_ORIGINS must use HTTPS in production environment");
+}
+
+export const env = {
+  ..._env.data,
+  CORS_ORIGINS: corsOrigins
+};
