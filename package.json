@@ -1,7 +1,7 @@
 {
   "name": "tiky-service",
   "version": "1.0.0",
-  "description": "tiky-service",
+  "description": "Backend API para o Tiky: Um gerenciador de tarefas gamificado com sistema de XP, loja de recompensas e ofensiva diária.",
   "main": "index.js",
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
