@@ -145,3 +145,4 @@ src/database/tmp/*.db
 
 # Prisma
 /src/generated
+/src/generated/prisma
