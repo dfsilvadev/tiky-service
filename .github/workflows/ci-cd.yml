@@ -156,7 +156,7 @@ jobs:
       PORT: 3000
       NODE_ENV: production
       JWT_SECRET: test-secret-with-at-least-32-characters
-      CORS_ORIGINS: http://localhost:3000
+      CORS_ORIGINS: https://localhost:3000
       DATABASE_URL: postgres://postgres:postgres@host.docker.internal:5432/tiky_service?schema=public
     steps:
       - name: Checkout
@@ -179,8 +179,20 @@ jobs:
             -e DATABASE_URL="$DATABASE_URL" \
             tiky-service:ci
 
-          sleep 10
-          curl -f http://localhost:3000/api/v1/health
+          for i in {1..30}; do
+            if curl -fsS http://localhost:3000/api/v1/health > /dev/null; then
+              echo "Health check passed"
+              break
+            fi
+
+            if [ "$i" -eq 30 ]; then
+              echo "Health check failed after retries. Container logs:"
+              docker logs tiky-ci
+              exit 1
+            fi
+
+            sleep 2
+          done
 
           docker stop tiky-ci
           docker rm tiky-ci
