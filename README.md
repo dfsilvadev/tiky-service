@@ -54,16 +54,28 @@ cp .env.example .env
 Preencha o `.env` com os valores do ambiente local:
 
 ```env
-DATABASE_URL=postgres://<user>:<password>@localhost:5433/<db>?schema=public
-E2E_DATABASE_URL=postgres://<user>:<password>@localhost:5434/<db>?schema=public
-POSTGRES_USER=<user>
-POSTGRES_PASSWORD=<password>
-POSTGRES_DB=<db>
+# DATABASE
+DATABASE_URL='postgres://<<user>>:<<password>>@localhost:5433/<<postgres-db>>?schema=public'
+E2E_DATABASE_URL='postgres://<<user>>:<<password>>@localhost:5434/<<postgres-db>>?schema=public'
+
+# POSTGRESQL (DOCKER)
+POSTGRES_USER=<<user>>
+POSTGRES_PASSWORD=<<password>>
+POSTGRES_DB=<<postgres-db>>
 POSTGRES_PORT=5433
-JWT_SECRET=<secret>
+
+# JWT CONFIGURATION
+JWT_SECRET=<<secret>>
+
+# EXPRESS
 PORT=3000
+
+# ENV ENVIRONMENT
 NODE_ENV=development
-CORS_ORIGINS=http://localhost:3000,http://localhost:5173
+
+# CORS
+CORS_ORIGINS=
+
 ```
 
 ### 3. Subir banco com Docker (desenvolvimento)
