@@ -254,12 +254,33 @@ pnpm db:up
 ```bash
 pnpm prisma:generate
 pnpm prisma:migrate
+pnpm prisma:seed
 ```
 
 Observação:
 
 - O projeto usa schema Prisma modular. O ponto de entrada fica em `prisma/schema.prisma`, e os modelos/enums estão distribuídos em `prisma/models/*.prisma`.
 - A configuração está em `prisma.config.ts`, com schema apontando para a pasta `prisma/` e migrações em `prisma/migrations`.
+- O seed está configurado em `prisma.config.ts` via `migrations.seed` e executa `tsx prisma/seed.ts`.
+
+### Seed inicial (`prisma/seed.ts`)
+
+O seed popula dados essenciais para desenvolvimento local:
+
+- Usuário admin padrão (`admin@tiky.com`) com papel `ADMIN`.
+- Usuário player padrão (`jogador@tiky.com`) com papel `PLAYER`.
+- Recompensas iniciais da loja.
+
+Comportamento esperado ao executar novamente:
+
+- Usuários não são duplicados (uso de `upsert`).
+- Recompensas só são criadas quando a tabela está vazia.
+
+Executar seed manualmente:
+
+```bash
+pnpm prisma:seed
+```
 
 ### 5. Iniciar aplicação
 
@@ -312,6 +333,7 @@ Resposta esperada:
 
 - `pnpm prisma:generate` - Gera Prisma Client.
 - `pnpm prisma:migrate` - Cria/aplica migrações em desenvolvimento.
+- `pnpm prisma:seed` - Executa seed do banco (`prisma db seed`).
 - `pnpm prisma:validate` - Valida schema Prisma.
 - `pnpm prisma:format` - Formata schema Prisma.
 - `pnpm prisma:studio` - Abre Prisma Studio.
