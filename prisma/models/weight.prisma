@@ -1,0 +1,5 @@
+enum Weight {
+  BASIC
+  IMPORTANT
+  EPIC
+}

@@ -1,0 +1,7 @@
+enum InstanceStatus {
+  PENDING
+  IN_REVIEW
+  COMPLETED
+  REJECTED
+  EXPIRED
+}

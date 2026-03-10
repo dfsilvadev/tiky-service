@@ -1,0 +1,6 @@
+enum RecurrenceType {
+  ONCE
+  DAILY
+  WEEKLY
+  INTERVAL
+}
