@@ -1,0 +1,13 @@
+model Transaction {
+  id          String          @id @default(uuid())
+  playerId    String
+  type        TransactionType
+  amount      Int             // Positivo ou Negativo dependendo do type
+  description String
+  
+  createdAt   DateTime        @default(now())
+
+  player      User            @relation(fields: [playerId], references: [id])
+
+  @@map("transactions")
+}

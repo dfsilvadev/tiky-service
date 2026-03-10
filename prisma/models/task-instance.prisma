@@ -1,0 +1,20 @@
+model TaskInstance {
+  id            String         @id @default(uuid())
+  templateId    String
+  playerId      String
+  
+  date          DateTime       @db.Date
+  status        InstanceStatus @default(PENDING)
+  proofImageUrl String?
+  feedback      String?
+  awardedXp     Int?
+  
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  template      TaskTemplate   @relation(fields: [templateId], references: [id], onDelete: Restrict)
+  player        User           @relation("Player", fields: [playerId], references: [id])
+  subtasks      SubtaskInstance[]
+
+  @@map("task_instances")
+}

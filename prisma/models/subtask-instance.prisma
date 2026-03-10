@@ -1,0 +1,10 @@
+model SubtaskInstance {
+  id             String       @id @default(uuid())
+  taskInstanceId String
+  description    String
+  isCompleted    Boolean      @default(false)
+
+  taskInstance   TaskInstance @relation(fields: [taskInstanceId], references: [id], onDelete: Cascade)
+
+  @@map("subtask_instances")
+}
