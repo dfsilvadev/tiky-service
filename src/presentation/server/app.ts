@@ -4,7 +4,7 @@ import fastify from "fastify";
 
 import { healthRoutes } from "../http/routes";
 
-import { env } from "./config/env";
+import { env } from "../../shared/config/env";
 
 export const app = fastify({
   logger: true

@@ -2,7 +2,7 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
 import { PrismaClient } from "../../../generated/prisma/client";
 
-import { env } from "../../../presentation/server/config/env";
+import { env } from "../../../shared/config/env";
 
 let pool: Pool | null = null;
 let client: PrismaClient | null = null;

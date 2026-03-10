@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { z } from "zod";
 
-import { logger } from "../../../../infrastructure/logger";
+import { logger } from "../../../infrastructure/logger";
 
 const SECONDS_IN_MINUTE = 60;
 const MINUTES_IN_HOUR = 60;
@@ -56,6 +56,12 @@ const defaultCorsOrigins = LOCALHOST_CORS_PORTS.map(
 const corsOrigins = _env.data.CORS_ORIGINS
   ? _env.data.CORS_ORIGINS.split(",").map((origin) => origin.trim())
   : defaultCorsOrigins;
+
+if (_env.data.NODE_ENV === "production" && !_env.data.CORS_ORIGINS) {
+  throw new Error(
+    "CORS_ORIGINS must be explicitly set in production environment"
+  );
+}
 
 if (
   _env.data.NODE_ENV === "production" &&

@@ -1,7 +1,7 @@
 import { logger } from "./infrastructure/logger";
 import { app } from "./presentation/server/app";
 
-import { env } from "./presentation/server/config/env";
+import { env } from "./shared/config/env";
 
 const start = async () => {
   try {

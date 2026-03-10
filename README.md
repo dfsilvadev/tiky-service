@@ -31,7 +31,7 @@ O sistema opera com dois perfis distintos:
 
 ## 📋 Pré-requisitos
 
-- Node.js 20+
+- Node.js 20.x (alinhado com `.nvmrc`, CI e Dockerfile)
 - pnpm 10+
 - Docker e Docker Compose
 
@@ -74,9 +74,15 @@ PORT=3000
 NODE_ENV=development
 
 # CORS
-CORS_ORIGINS=
+CORS_ORIGINS=http://localhost:3000,http://localhost:5173,http://localhost:3001,http://localhost:3002
 
 ```
+
+Observações de ambiente:
+
+- Em `production`, `CORS_ORIGINS` deve ser definido explicitamente.
+- Em `production`, todos os valores de `CORS_ORIGINS` devem usar `https://`.
+- No `docker-compose.yml`, o `NODE_ENV` local usa `development` por padrão (`${NODE_ENV:-development}`).
 
 ### 3. Subir banco com Docker (desenvolvimento)
 
@@ -198,7 +204,8 @@ Em termos práticos:
    Objetivo: traduzir protocolo HTTP para casos de uso e devolver respostas padronizadas.
 
 5. **Shared (`src/shared`)**
-   Responsabilidade: tipos e utilidades transversais reutilizáveis.
+   Responsabilidade: tipos, utilidades e configurações transversais reutilizáveis.
+   Exemplo: configuração de ambiente centralizada em `src/shared/config/env`.
 
 6. **Generated (`src/generated`)**
    Responsabilidade: artefatos gerados (Prisma Client).
@@ -241,10 +248,9 @@ src/
 │   │   ├── utils/
 │   │   │   └── constants/
 │   │   └── validators/
-│   └── server/
-│       └── config/
-│           └── env/
 └── shared/
+   └── config/
+      └── env/
 ```
 
 ### Princípios Aplicados
