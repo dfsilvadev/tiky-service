@@ -1,0 +1,16 @@
+model RedemptionRequest {
+  id        String           @id @default(uuid())
+  rewardId  String
+  playerId  String
+  status    RedemptionStatus @default(PENDING)
+  
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+
+  reward    Reward           @relation(fields: [rewardId], references: [id], onDelete: Restrict)
+  player    User             @relation(fields: [playerId], references: [id])
+
+  @@index([status])
+  @@index([playerId])
+  @@map("redemption_requests")
+}

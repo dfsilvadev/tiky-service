@@ -1,0 +1,5 @@
+enum TemplateStatus {
+  PENDING_APPROVAL
+  ACTIVE
+  INACTIVE
+}

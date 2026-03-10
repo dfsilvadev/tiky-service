@@ -1,0 +1,15 @@
+model Reward {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  xpCost      Int
+  imageUrl    String?
+  isActive    Boolean  @default(true)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  redemptions RedemptionRequest[]
+
+  @@map("rewards")
+}
