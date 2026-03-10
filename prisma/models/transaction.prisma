@@ -9,5 +9,6 @@ model Transaction {
 
   player      User            @relation(fields: [playerId], references: [id])
 
+  @@index([playerId, createdAt(sort: Desc)])
   @@map("transactions")
 }

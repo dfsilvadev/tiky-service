@@ -16,5 +16,7 @@ model TaskInstance {
   player        User           @relation("Player", fields: [playerId], references: [id])
   subtasks      SubtaskInstance[]
 
+  @@index([playerId, date])
+  @@index([status])
   @@map("task_instances")
 }

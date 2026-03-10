@@ -21,5 +21,7 @@ model TaskTemplate {
   author            User           @relation("Author", fields: [authorId], references: [id])
   instances         TaskInstance[]
 
+  @@index([status])
+  @@index([authorId])
   @@map("task_templates")
 }

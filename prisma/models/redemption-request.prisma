@@ -10,5 +10,7 @@ model RedemptionRequest {
   reward    Reward           @relation(fields: [rewardId], references: [id], onDelete: Restrict)
   player    User             @relation(fields: [playerId], references: [id])
 
+  @@index([status])
+  @@index([playerId])
   @@map("redemption_requests")
 }
