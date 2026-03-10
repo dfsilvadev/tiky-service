@@ -13,9 +13,7 @@ export default defineConfig({
         "**/*.config.js",
         "**/*.d.ts",
         "src/server.ts",
-        "src/mocks/**",
-        "src/utils/logger.js",
-        "src/database/**"
+        "src/infrastructure/logger/**.ts"
       ],
       reporter: ["text", "json", "html", "lcov"],
       include: ["src/**/*.ts"]
