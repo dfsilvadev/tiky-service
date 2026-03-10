@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+echo "🔍 Verificando tipos TypeScript..."
+pnpm run type:check
+
+if [ $? -ne 0 ]; then
+  echo "❌ Type check error. Fix before pushing."
+  exit 1
+fi
+
+echo "✅ Type check passed!"
+
