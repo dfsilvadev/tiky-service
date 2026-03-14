@@ -1,4 +1,4 @@
-model User {
+model Account {
   id            String   @id @default(uuid())
   name          String
   email         String   @unique
@@ -17,5 +17,5 @@ model User {
   redemptionRequests  RedemptionRequest[]
   transactions        Transaction[]
 
-  @@map("users")
+  @@map("accounts")
 }
