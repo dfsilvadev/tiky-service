@@ -9,7 +9,7 @@ async function main() {
 
   const defaultPasswordHash = await hash("Senha@123", 8);
 
-  const admin = await prismaClient.user.upsert({
+  const admin = await prismaClient.account.upsert({
     where: { email: "admin@tiky.com" },
     update: {},
     create: {
@@ -20,9 +20,9 @@ async function main() {
     }
   });
 
-  const player = await prismaClient.user.upsert({
+  const player = await prismaClient.account.upsert({
     where: { email: "jogador@tiky.com" },
-    update: {}, // Se já existir, não faz nada
+    update: {},
     create: {
       name: "Jogador Principal",
       email: "jogador@tiky.com",
