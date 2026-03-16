@@ -6,6 +6,12 @@ import { signUpValidator } from "../../validators/sign-up.validator";
 
 import { toHttpResponse } from "../../../../shared/utils/http-error-mapper";
 
+import {
+  HTTP_STATUS_SUCCESS,
+  SUCCESS_CODES,
+  SUCCESS_MESSAGES
+} from "../../../../shared/constants/success.constants";
+
 import { type IController } from "../../../../domain/entities/controller.entity";
 
 export class SignUpController implements IController {
@@ -17,17 +23,23 @@ export class SignUpController implements IController {
         request.body
       );
 
-      const response = await this._signUpUseCase.execute({
+      await this._signUpUseCase.execute({
         name,
         email,
         password,
         role
       });
 
-      return reply.status(201).send(response);
+      return reply.status(HTTP_STATUS_SUCCESS.CREATED).send({
+        statusCode: HTTP_STATUS_SUCCESS.CREATED,
+        details: {
+          code: SUCCESS_CODES.ACCOUNT_CREATED,
+          message: SUCCESS_MESSAGES.ACCOUNT_CREATED
+        }
+      });
     } catch (error) {
       const { statusCode, details } = toHttpResponse(error);
-      return reply.status(Number(statusCode)).send(details);
+      return reply.status(statusCode).send(details);
     }
   }
 }
