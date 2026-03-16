@@ -1,8 +1,3 @@
-import { Role } from "../../../generated/prisma/enums";
+import { type SignUpDTO } from "../../../presentation/http/validators/sign-up.validator";
 
-export interface ISignUpDTO {
-  readonly name: string;
-  readonly email: string;
-  readonly password: string;
-  readonly role?: Role;
-}
+export interface ISignUpDTO extends SignUpDTO {}
