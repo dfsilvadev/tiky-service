@@ -14,8 +14,8 @@ import {
 
 vi.mock("bcryptjs", () => ({
   default: {
-    hash: vi.fn(),
-    compare: vi.fn()
+    hash: vi.fn(async () => "mocked-hash"),
+    compare: vi.fn(async () => true)
   }
 }));
 
@@ -38,9 +38,11 @@ describe("Sing up Use Case (Unit)", () => {
     const response = await sut.execute(mockedUser);
 
     expect(response).toMatchObject({
-      name: mockedUser.name,
-      email: mockedUser.email,
-      role: mockedUser.role
+      account: {
+        name: mockedUser.name,
+        email: mockedUser.email,
+        role: mockedUser.role
+      }
     });
   });
 

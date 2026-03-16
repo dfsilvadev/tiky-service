@@ -11,9 +11,10 @@ export class SignUpUseCase {
   ) {}
 
   async execute({ name, email, password, role }: ISignUpDTO) {
-    const userAlreadyExists = await this._accountRepository.findByEmail(email);
+    const accountAlreadyExists =
+      await this._accountRepository.findByEmail(email);
 
-    if (userAlreadyExists) throw new AccountAlreadyExistsError(email);
+    if (accountAlreadyExists) throw new AccountAlreadyExistsError(email);
 
     const hashedPassword = await this._passwordHasher.hash(password);
 
@@ -24,6 +25,6 @@ export class SignUpUseCase {
       role
     });
 
-    return account;
+    return { account };
   }
 }
