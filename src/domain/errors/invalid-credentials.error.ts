@@ -1,12 +1,16 @@
-import { HTTP_STATUS } from "../../shared/constants/http-status";
+import {
+  ERROR_CODES,
+  ERROR_MESSAGES,
+  HTTP_STATUS_ERROR
+} from "../../shared/constants/error.constants";
 import { AppError } from "./app.error";
 
 export class InvalidCredentialsError extends AppError {
   constructor() {
     super(
-      "Invalid email or password",
-      HTTP_STATUS.UNAUTHORIZED,
-      "INVALID_CREDENTIALS"
+      ERROR_MESSAGES.INVALID_CREDENTIALS,
+      HTTP_STATUS_ERROR.UNAUTHORIZED,
+      ERROR_CODES.INVALID_CREDENTIALS
     );
   }
 }

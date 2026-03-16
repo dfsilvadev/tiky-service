@@ -1,11 +1,12 @@
-import { ERROR_CODES } from "../../shared/constants/error-codes";
-import { HTTP_STATUS } from "../../shared/constants/http-status";
+import {
+  ERROR_CODES,
+  ERROR_MESSAGES,
+  HTTP_STATUS_ERROR
+} from "../../shared/constants/error.constants";
 import { AppError } from "./app.error";
 
 export class InvalidTokenError extends AppError {
-  constructor(
-    message: string = "Your session has expired or is invalid. Please log in again"
-  ) {
-    super(message, HTTP_STATUS.UNAUTHORIZED, ERROR_CODES.INVALID_TOKEN);
+  constructor(message: string = ERROR_MESSAGES.INVALID_TOKEN) {
+    super(message, HTTP_STATUS_ERROR.UNAUTHORIZED, ERROR_CODES.INVALID_TOKEN);
   }
 }
