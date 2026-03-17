@@ -40,11 +40,11 @@ export class SignInController implements IController {
         secure: true,
         httpOnly: true,
         sameSite: true,
-        maxAge: this._cookieMaxAge //7 * 24 * 60 * 60 // 7 days in seconds
+        maxAge: this._cookieMaxAge
       });
 
       reply.status(HTTP_STATUS_SUCCESS.OK).send({
-        statusCode: HTTP_STATUS_SUCCESS.CREATED,
+        statusCode: HTTP_STATUS_SUCCESS.OK,
         details: {
           token
         }
