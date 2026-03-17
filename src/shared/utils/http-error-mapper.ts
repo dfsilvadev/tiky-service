@@ -27,7 +27,7 @@ export function toHttpResponse(error: unknown): IResponse {
 
   if (error instanceof AppError) {
     return {
-      statusCode: HTTP_STATUS_ERROR.BAD_REQUEST,
+      statusCode: error.status,
       details: {
         code: error.code,
         message: error.expose
