@@ -33,7 +33,7 @@ export function toHttpResponse(error: unknown): IResponse {
         message: error.expose
           ? error.message
           : ERROR_MESSAGES.INTERNAL_SERVER_ERROR,
-        details: error.details ?? null
+        details: error.expose ? (error.details ?? null) : null
       }
     };
   }
