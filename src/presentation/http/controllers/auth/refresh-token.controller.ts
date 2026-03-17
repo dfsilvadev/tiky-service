@@ -12,16 +12,8 @@ export class RefreshTokenController implements IController {
 
   async handler(request: FastifyRequest, reply: FastifyReply): Promise<void> {
     try {
-      const { refreshToken } = request.cookies;
       await request.jwtVerify({ onlyCookie: true });
-
-      if (typeof refreshToken !== "string") {
-        reply.status(400).send({
-          code: "VALIDATION_ERROR",
-          message: "Refresh token must be a string"
-        });
-        return;
-      }
+      const refreshToken = request.cookies.refreshToken as string;
 
       const { token } = await this._refreshTokenUseCase.execute({
         refreshToken
