@@ -1,6 +1,11 @@
 import bcrypt from "bcryptjs";
 
 import { AppError } from "../../domain/errors";
+import {
+  ERROR_CODES,
+  ERROR_MESSAGES,
+  HTTP_STATUS_ERROR
+} from "../../shared/constants/error.constants";
 import { logger } from "../logger";
 
 import { type IEncryptionService } from "../../domain/services/password-hasher.service";
@@ -18,10 +23,11 @@ export class BcryptEncryptionService implements IEncryptionService {
       logger.error("[PasswordHasher] Error hashing password", { error });
 
       throw new AppError(
-        "Error hashing password",
-        500,
-        "PASSWORD_HASHING_ERROR",
-        { originalError: error }
+        ERROR_MESSAGES.PASSWORD_HASHING_ERROR,
+        HTTP_STATUS_ERROR.INTERNAL_SERVER_ERROR,
+        ERROR_CODES.PASSWORD_HASHING_ERROR,
+        undefined,
+        false
       );
     }
   }
@@ -38,10 +44,11 @@ export class BcryptEncryptionService implements IEncryptionService {
       logger.error("[PasswordHasher] Error comparing password", { error });
 
       throw new AppError(
-        "Error comparing password",
-        500,
-        "PASSWORD_COMPARISON_ERROR",
-        { originalError: error }
+        ERROR_MESSAGES.PASSWORD_COMPARISON_ERROR,
+        HTTP_STATUS_ERROR.INTERNAL_SERVER_ERROR,
+        ERROR_CODES.PASSWORD_COMPARISON_ERROR,
+        undefined,
+        false
       );
     }
   }
