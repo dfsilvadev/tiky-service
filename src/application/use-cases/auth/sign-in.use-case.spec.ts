@@ -8,6 +8,7 @@ import { InMemoryAccountRepository } from "../../../infrastructure/persistence/i
 import { BcryptEncryptionService } from "../../../infrastructure/security/bcrypt-encryption.service";
 
 import { Role } from "../../../generated/prisma/enums";
+import { env } from "../../../shared/config/env";
 
 import { ITokenService } from "../../../domain/services/token.service";
 import { InMemorySessionRepository } from "../../../infrastructure/persistence/in-memory/in-memory.session.repository";
@@ -106,7 +107,7 @@ describe("Sign in Use Case (unit)", () => {
           role: account.role
         }
       },
-      options: { sub: account.id }
+      options: { sub: account.id, expiresIn: env.ACCESS_TOKEN_TTL }
     });
     expect(signTokenSpy).toHaveBeenNthCalledWith(2, {
       payload: { account: { role: account.role } },
