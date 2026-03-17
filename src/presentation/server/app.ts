@@ -18,6 +18,8 @@ app.register(cors, {
   origin: env.CORS_ORIGINS
 });
 
+app.register(fastifyCookie);
+
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
   cookie: {
@@ -28,8 +30,6 @@ app.register(fastifyJwt, {
     expiresIn: env.ACCESS_TOKEN_TTL
   }
 });
-
-app.register(fastifyCookie);
 
 /**
  * Registering routes
