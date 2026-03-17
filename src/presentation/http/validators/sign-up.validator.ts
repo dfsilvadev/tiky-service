@@ -7,7 +7,7 @@ export const signUpValidatorSchema = z.object({
   email: z.email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters long"),
   role: z
-    .enum([Role.ADMIN, Role.PLAYER], "Role must be either 'user' or 'admin'")
+    .enum(Role, "Role must be either 'PLAYER' or 'ADMIN'")
     .default(Role.PLAYER)
 });
 
