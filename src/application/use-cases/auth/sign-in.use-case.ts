@@ -2,7 +2,7 @@ import { InvalidCredentialsError } from "../../../domain/errors";
 
 import { type IAccountRepository } from "../../../domain/repositories/account.repository";
 import { type IEncryptionService } from "../../../domain/services/password-hasher.service";
-import { type ISignInDTO } from "../../dtos/account/sign-in.dto";
+import { type ISignInDTO } from "../../dtos/auth/sign-in.dto";
 
 export class SignInUseCase {
   constructor(
