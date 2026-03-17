@@ -3,7 +3,7 @@ import cors from "@fastify/cors";
 import fastifyJwt from "@fastify/jwt";
 import fastify from "fastify";
 
-import { accountRoutes, healthRoutes } from "../http/routes";
+import { applicationRoutes } from "../http/routes";
 
 import { env } from "../../shared/config/env";
 
@@ -34,9 +34,6 @@ app.register(fastifyCookie);
 /**
  * Registering routes
  */
-app.register(healthRoutes, {
-  prefix: "/api/v1"
-});
-app.register(accountRoutes, {
+app.register(applicationRoutes, {
   prefix: "/api/v1"
 });
