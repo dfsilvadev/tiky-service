@@ -1,6 +1,6 @@
 import { Role } from "../../generated/prisma/enums";
 
-const DUMMY_PASSWORD = "dummy-password";
+const DUMMY_PASSWORD = "dummy-value";
 const DUMMY_HASH = "dummy-hash";
 
 const DUMMY_ACCOUNT = {
