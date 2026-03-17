@@ -1,4 +1,4 @@
-import { BcryptEncryptionService } from "../security/bcrypt-password-hasher.service";
+import { BcryptEncryptionService } from "../security/bcrypt-encryption.service";
 
 import { env } from "../../shared/config/env";
 

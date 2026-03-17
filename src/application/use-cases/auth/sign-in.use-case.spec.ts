@@ -3,9 +3,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { SignInUseCase } from "./sign-in.use-case";
 
-import { IEncryptionService } from "../../../domain/services/password-hasher.service";
+import { IEncryptionService } from "../../../domain/services/encryption.service";
 import { InMemoryAccountRepository } from "../../../infrastructure/persistence/in-memory/in-memory.account.repository";
-import { BcryptEncryptionService } from "../../../infrastructure/security/bcrypt-password-hasher.service";
+import { BcryptEncryptionService } from "../../../infrastructure/security/bcrypt-encryption.service";
 
 import { Role } from "../../../generated/prisma/enums";
 

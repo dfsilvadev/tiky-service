@@ -8,7 +8,7 @@ import {
 } from "../../shared/constants/error.constants";
 import { logger } from "../logger";
 
-import { type IEncryptionService } from "../../domain/services/password-hasher.service";
+import { type IEncryptionService } from "../../domain/services/encryption.service";
 
 export class BcryptEncryptionService implements IEncryptionService {
   constructor(private readonly _saltRounds: number) {}

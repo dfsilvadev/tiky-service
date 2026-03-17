@@ -1,7 +1,7 @@
 import { AccountAlreadyExistsError } from "../../../domain/errors";
 
 import { type IAccountRepository } from "../../../domain/repositories/account.repository";
-import { type IEncryptionService } from "../../../domain/services/password-hasher.service";
+import { type IEncryptionService } from "../../../domain/services/encryption.service";
 import { type ISignUpDTO } from "../../dtos/account/sign-up.dto";
 
 export class SignUpUseCase {

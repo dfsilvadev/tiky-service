@@ -2,9 +2,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { SignUpUseCase } from "./sign-up.use-case";
 
-import { IEncryptionService } from "../../../domain/services/password-hasher.service";
+import { IEncryptionService } from "../../../domain/services/encryption.service";
 import { InMemoryAccountRepository } from "../../../infrastructure/persistence/in-memory/in-memory.account.repository";
-import { BcryptEncryptionService } from "../../../infrastructure/security/bcrypt-password-hasher.service";
+import { BcryptEncryptionService } from "../../../infrastructure/security/bcrypt-encryption.service";
 
 import { AccountAlreadyExistsError } from "../../../domain/errors";
 
