@@ -1,13 +1,13 @@
 import { InvalidCredentialsError } from "../../../domain/errors";
 
 import { type IAccountRepository } from "../../../domain/repositories/account.repository";
-import { type BcryptPasswordHasherService } from "../../../infrastructure/security/bcrypt-password-hasher.service";
+import { type IEncryptionService } from "../../../domain/services/password-hasher.service";
 import { type ISignInDTO } from "../../dtos/account/sign-in.dto";
 
 export class SignInUseCase {
   constructor(
     private readonly _accountRepository: IAccountRepository,
-    private readonly _passwordHasher: BcryptPasswordHasherService
+    private readonly _passwordHasher: IEncryptionService
   ) {}
 
   async execute({ email, password }: ISignInDTO) {

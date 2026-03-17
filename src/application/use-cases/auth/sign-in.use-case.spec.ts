@@ -3,9 +3,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { SignInUseCase } from "./sign-in.use-case";
 
-import { Role } from "../../../generated/prisma/enums";
+import { IEncryptionService } from "../../../domain/services/password-hasher.service";
 import { InMemoryAccountRepository } from "../../../infrastructure/persistence/in-memory/in-memory.account.repository";
-import { BcryptPasswordHasherService } from "../../../infrastructure/security/bcrypt-password-hasher.service";
+import { BcryptEncryptionService } from "../../../infrastructure/security/bcrypt-password-hasher.service";
+
+import { Role } from "../../../generated/prisma/enums";
+
 import { ERROR_MESSAGES } from "../../../shared/constants/error.constants";
 
 vi.mock("bcryptjs", () => ({
@@ -16,13 +19,13 @@ vi.mock("bcryptjs", () => ({
 }));
 
 let accountRepositoryMocked: InMemoryAccountRepository;
-let passwordHasherService: BcryptPasswordHasherService;
+let passwordHasherService: IEncryptionService;
 let sut: SignInUseCase;
 
 describe("Sign in Use Case (unit)", () => {
   beforeEach(() => {
     accountRepositoryMocked = new InMemoryAccountRepository();
-    passwordHasherService = new BcryptPasswordHasherService(10);
+    passwordHasherService = new BcryptEncryptionService(10);
     sut = new SignInUseCase(accountRepositoryMocked, passwordHasherService);
   });
 

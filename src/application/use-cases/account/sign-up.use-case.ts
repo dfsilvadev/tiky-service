@@ -1,13 +1,13 @@
 import { AccountAlreadyExistsError } from "../../../domain/errors";
 
 import { type IAccountRepository } from "../../../domain/repositories/account.repository";
-import { type BcryptPasswordHasherService } from "../../../infrastructure/security/bcrypt-password-hasher.service";
+import { type IEncryptionService } from "../../../domain/services/password-hasher.service";
 import { type ISignUpDTO } from "../../dtos/account/sign-up.dto";
 
 export class SignUpUseCase {
   constructor(
     private readonly _accountRepository: IAccountRepository,
-    private readonly _passwordHasher: BcryptPasswordHasherService
+    private readonly _passwordHasher: IEncryptionService
   ) {}
 
   async execute({ name, email, password, role }: ISignUpDTO) {

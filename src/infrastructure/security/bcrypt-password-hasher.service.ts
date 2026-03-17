@@ -3,9 +3,9 @@ import bcrypt from "bcryptjs";
 import { AppError } from "../../domain/errors";
 import { logger } from "../logger";
 
-import { type IPasswordHasherService } from "../../domain/services/password-hasher.service";
+import { type IEncryptionService } from "../../domain/services/password-hasher.service";
 
-export class BcryptPasswordHasherService implements IPasswordHasherService {
+export class BcryptEncryptionService implements IEncryptionService {
   constructor(private readonly _saltRounds: number) {}
 
   async hash(password: string): Promise<string> {

@@ -2,8 +2,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { SignUpUseCase } from "./sign-up.use-case";
 
+import { IEncryptionService } from "../../../domain/services/password-hasher.service";
 import { InMemoryAccountRepository } from "../../../infrastructure/persistence/in-memory/in-memory.account.repository";
-import { BcryptPasswordHasherService } from "../../../infrastructure/security/bcrypt-password-hasher.service";
+import { BcryptEncryptionService } from "../../../infrastructure/security/bcrypt-password-hasher.service";
 
 import { AccountAlreadyExistsError } from "../../../domain/errors";
 
@@ -17,13 +18,13 @@ vi.mock("bcryptjs", () => ({
 }));
 
 let accountRepositoryMocked: InMemoryAccountRepository;
-let passwordHasherService: BcryptPasswordHasherService;
+let passwordHasherService: IEncryptionService;
 let sut: SignUpUseCase;
 
 describe("Sing up Use Case (Unit)", () => {
   beforeEach(() => {
     accountRepositoryMocked = new InMemoryAccountRepository();
-    passwordHasherService = new BcryptPasswordHasherService(10);
+    passwordHasherService = new BcryptEncryptionService(10);
     sut = new SignUpUseCase(accountRepositoryMocked, passwordHasherService);
   });
 
