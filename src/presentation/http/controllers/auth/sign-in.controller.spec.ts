@@ -2,7 +2,7 @@ import { type FastifyInstance } from "fastify";
 import request from "supertest";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { mockedUser } from "../../../../shared/mocks/data.mocked";
+import { mockAccount } from "../../../../shared/mocks/data.mocked";
 
 let app: FastifyInstance;
 
@@ -19,13 +19,13 @@ describe("Sign In Controller (e2e)", () => {
   });
 
   it("should sign in with valid credentials", async () => {
-    await request(app.server).post("/api/v1/auth/sign-up").send(mockedUser);
+    await request(app.server).post("/api/v1/auth/sign-up").send(mockAccount);
 
     const response = await request(app.server)
       .post("/api/v1/auth/sign-in")
       .send({
-        email: mockedUser.email,
-        password: mockedUser.password
+        email: mockAccount.email,
+        password: mockAccount.password
       });
 
     expect(response.statusCode).toEqual(200);

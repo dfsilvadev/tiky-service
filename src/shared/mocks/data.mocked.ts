@@ -1,14 +1,13 @@
 import { Role } from "../../generated/prisma/enums";
 
-const mockedHashedPassword = "mocked-hash";
+const mockHashedPassword = "mocked-hash";
+const mockPassword = "my-secure-password";
 
-const testPassword = "my-secure-password";
-
-const mockedUser = {
+const mockAccount = {
   name: "John Doe",
   email: "johndoe@example.com",
-  password: testPassword,
+  password: mockPassword,
   role: Role.PLAYER
 };
 
-export { mockedHashedPassword, mockedUser, testPassword };
+export { mockAccount, mockHashedPassword, mockPassword };
