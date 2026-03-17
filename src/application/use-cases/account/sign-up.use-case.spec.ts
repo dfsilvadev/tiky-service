@@ -7,10 +7,7 @@ import { BcryptPasswordHasherService } from "../../../infrastructure/security/bc
 
 import { AccountAlreadyExistsError } from "../../../domain/errors";
 
-import {
-  mockAccount,
-  mockHashedPassword
-} from "../../../shared/mocks/data.mocked";
+import { DUMMY_ACCOUNT, DUMMY_HASH } from "../../../shared/mocks/data.mocked";
 
 vi.mock("bcryptjs", () => ({
   default: {
@@ -35,24 +32,24 @@ describe("Sing up Use Case (Unit)", () => {
   });
 
   it("should be able to sign up", async () => {
-    const response = await sut.execute(mockAccount);
+    const response = await sut.execute(DUMMY_ACCOUNT);
 
     expect(response).toMatchObject({
       account: {
-        name: mockAccount.name,
-        email: mockAccount.email,
-        role: mockAccount.role
+        name: DUMMY_ACCOUNT.name,
+        email: DUMMY_ACCOUNT.email,
+        role: DUMMY_ACCOUNT.role
       }
     });
   });
 
   it("should not be able to sign up with an existing email", async () => {
-    await sut.execute(mockAccount);
+    await sut.execute(DUMMY_ACCOUNT);
 
-    await expect(sut.execute(mockAccount)).rejects.toBeInstanceOf(
+    await expect(sut.execute(DUMMY_ACCOUNT)).rejects.toBeInstanceOf(
       AccountAlreadyExistsError
     );
-    await expect(sut.execute(mockAccount)).rejects.toThrowError(
+    await expect(sut.execute(DUMMY_ACCOUNT)).rejects.toThrowError(
       "An account with email johndoe@example.com already exists"
     );
   });
@@ -60,24 +57,24 @@ describe("Sing up Use Case (Unit)", () => {
   it("should hash the password before saving the account", async () => {
     const hashSpy = vi.spyOn(passwordHasherService, "hash");
 
-    await sut.execute(mockAccount);
-    expect(hashSpy).toHaveBeenCalledWith(mockAccount.password);
+    await sut.execute(DUMMY_ACCOUNT);
+    expect(hashSpy).toHaveBeenCalledWith(DUMMY_ACCOUNT.password);
   });
 
   it("should save the account with the hashed password", async () => {
     const hashSpy = vi.spyOn(passwordHasherService, "hash");
     const createSpy = vi.spyOn(accountRepositoryMocked, "create");
-    hashSpy.mockResolvedValue(mockHashedPassword);
+    hashSpy.mockResolvedValue(DUMMY_HASH);
 
-    await sut.execute(mockAccount);
+    await sut.execute(DUMMY_ACCOUNT);
 
-    expect(hashSpy).toHaveBeenCalledWith(mockAccount.password);
+    expect(hashSpy).toHaveBeenCalledWith(DUMMY_ACCOUNT.password);
     expect(createSpy).toHaveBeenCalledWith(
       expect.objectContaining({
-        name: mockAccount.name,
-        email: mockAccount.email,
-        password: mockHashedPassword,
-        role: mockAccount.role
+        name: DUMMY_ACCOUNT.name,
+        email: DUMMY_ACCOUNT.email,
+        password: DUMMY_HASH,
+        role: DUMMY_ACCOUNT.role
       })
     );
   });
