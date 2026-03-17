@@ -5,6 +5,12 @@ import { type Account } from "../../../generated/prisma/browser";
 export class InMemoryAccountRepository implements IAccountRepository {
   private readonly _accounts: Account[] = [];
 
+  async findById(_id: string): Promise<Account | null> {
+    const account = this._accounts.find((account) => account.id === _id);
+
+    return account ?? null;
+  }
+
   async findByEmail(_email: string): Promise<Account | null> {
     const account = this._accounts.find((account) => account.email === _email);
 

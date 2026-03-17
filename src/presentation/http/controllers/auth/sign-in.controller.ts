@@ -19,21 +19,10 @@ export class SignInController implements IController {
   async handler(request: FastifyRequest, reply: FastifyReply): Promise<void> {
     try {
       const { email, password } = signInValidatorSchema.parse(request.body);
-      const {
-        account: { id, name, email: authenticatedEmail, role }
-      } = await this._signInUseCase.execute({
+      const { token, refreshToken } = await this._signInUseCase.execute({
         email,
         password
       });
-
-      const token = await reply.jwtSign(
-        { account: { name, email: authenticatedEmail, role } },
-        { sub: id }
-      );
-      const refreshToken = await reply.jwtSign(
-        { account: { role } },
-        { sub: id, expiresIn: "7d" }
-      );
 
       reply.setCookie("refreshToken", refreshToken, {
         path: "/",

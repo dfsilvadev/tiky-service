@@ -8,6 +8,7 @@ export interface IAccountCreateDTO {
 }
 
 export interface IAccountRepository {
+  readonly findById: (_id: string) => Promise<Account | null>;
   readonly findByEmail: (_email: string) => Promise<Account | null>;
   readonly create: (_input: IAccountCreateDTO) => Promise<Account>;
 }

@@ -2,9 +2,19 @@ import { prismaClient } from "../../prisma-client";
 
 import { type ISignUpDTO } from "../../../../../application/dtos/account/sign-up.dto";
 import { type IAccountRepository } from "../../../../../domain/repositories/account.repository";
-import { Role, type Account } from "../../../../../generated/prisma/client";
+import { type Account, Role } from "../../../../../generated/prisma/client";
 
 export class PrismaAccountRepository implements IAccountRepository {
+  async findById(_id: string): Promise<Account | null> {
+    const row = await prismaClient.account.findUnique({
+      where: {
+        id: _id
+      }
+    });
+
+    return row;
+  }
+
   async findByEmail(_email: string): Promise<Account | null> {
     const row = await prismaClient.account.findUnique({
       where: {
