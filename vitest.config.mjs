@@ -13,7 +13,11 @@ export default defineConfig({
         "**/*.config.js",
         "**/*.d.ts",
         "src/server.ts",
-        "src/infrastructure/logger/**.ts"
+        "src/infrastructure/logger/**.ts",
+        "src/application/dtos/**/*.ts",
+        "src/domain/**/**/*.ts",
+        "src/generated",
+        "src/shared/utils/http-error-mapper.ts"
       ],
       reporter: ["text", "json", "html", "lcov"],
       include: ["src/**/*.ts"]
