@@ -2,7 +2,7 @@ import { type FastifyReply, type FastifyRequest } from "fastify";
 
 import { SignUpUseCase } from "../../../../application/use-cases/account/sign-up.use-case";
 
-import { signUpValidator } from "../../validators/sign-up.validator";
+import { signUpValidatorSchema } from "../../validators/sign-up.validator";
 
 import { toHttpResponse } from "../../../../shared/utils/http-error-mapper";
 
@@ -19,7 +19,7 @@ export class SignUpController implements IController {
 
   async handler(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const { name, email, password, role } = signUpValidator.parse(
+      const { name, email, password, role } = signUpValidatorSchema.parse(
         request.body
       );
 
