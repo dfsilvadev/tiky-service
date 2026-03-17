@@ -2,7 +2,7 @@ import { AccountAlreadyExistsError } from "../../../domain/errors";
 
 import { type IAccountRepository } from "../../../domain/repositories/account.repository";
 import { type BcryptPasswordHasherService } from "../../../infrastructure/security/bcrypt-password-hasher.service";
-import { type ISignUpDTO } from "../../dtos/account/sing-up.dto";
+import { type ISignUpDTO } from "../../dtos/account/sign-up.dto";
 
 export class SignUpUseCase {
   constructor(

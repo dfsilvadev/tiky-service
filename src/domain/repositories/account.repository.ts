@@ -1,4 +1,4 @@
-import { type ISignUpDTO } from "../../application/dtos/account/sing-up.dto";
+import { type ISignUpDTO } from "../../application/dtos/account/sign-up.dto";
 import { type Account } from "../../generated/prisma/client";
 
 export interface IAccountRepository {

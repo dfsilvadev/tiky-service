@@ -1,6 +1,6 @@
 import { prismaClient } from "../../prisma-client";
 
-import { type ISignUpDTO } from "../../../../../application/dtos/account/sing-up.dto";
+import { type ISignUpDTO } from "../../../../../application/dtos/account/sign-up.dto";
 import { type IAccountRepository } from "../../../../../domain/repositories/account.repository";
 import { Role, type Account } from "../../../../../generated/prisma/client";
 
