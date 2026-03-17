@@ -1,3 +1,4 @@
+import fastifyCookie from "@fastify/cookie";
 import cors from "@fastify/cors";
 import fastifyJwt from "@fastify/jwt";
 import fastify from "fastify";
@@ -18,8 +19,17 @@ app.register(cors, {
 });
 
 app.register(fastifyJwt, {
-  secret: env.JWT_SECRET
+  secret: env.JWT_SECRET,
+  cookie: {
+    cookieName: "refreshToken",
+    signed: false
+  },
+  sign: {
+    expiresIn: env.ACCESS_TOKEN_TTL
+  }
 });
+
+app.register(fastifyCookie);
 
 /**
  * Registering routes
