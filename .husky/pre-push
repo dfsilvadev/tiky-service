@@ -10,3 +10,13 @@ fi
 
 echo "✅ Type check passed!"
 
+echo "🧪 Executando testes..."
+pnpm run test
+
+if [ $? -ne 0 ]; then
+  echo "❌ Testes falharam. Corrija antes do push."
+  exit 1
+fi
+
+echo "✅ Testes passaram!"
+
