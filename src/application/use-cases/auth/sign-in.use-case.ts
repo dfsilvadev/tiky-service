@@ -2,7 +2,7 @@ import { InvalidCredentialsError } from "../../../domain/errors";
 
 import { type IAccountRepository } from "../../../domain/repositories/account.repository";
 import { type BcryptPasswordHasherService } from "../../../infrastructure/security/bcrypt-password-hasher.service";
-import { type ISignInDTO } from "../../dtos/account/sin-in.dto";
+import { type ISignInDTO } from "../../dtos/auth/sin-in.dto";
 
 export class SignInUseCase {
   constructor(
