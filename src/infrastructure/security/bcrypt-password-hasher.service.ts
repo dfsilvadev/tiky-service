@@ -25,7 +25,7 @@ export class BcryptEncryptionService implements IEncryptionService {
       throw new AppError(
         ERROR_MESSAGES.PASSWORD_HASHING_ERROR,
         HTTP_STATUS_ERROR.INTERNAL_SERVER_ERROR,
-        ERROR_CODES.PASSWORD_HASHING_ERROR,
+        ERROR_CODES.CREDENTIAL_HASHING_ERROR,
         undefined,
         false
       );
@@ -46,7 +46,7 @@ export class BcryptEncryptionService implements IEncryptionService {
       throw new AppError(
         ERROR_MESSAGES.PASSWORD_COMPARISON_ERROR,
         HTTP_STATUS_ERROR.INTERNAL_SERVER_ERROR,
-        ERROR_CODES.PASSWORD_COMPARISON_ERROR,
+        ERROR_CODES.CREDENTIAL_COMPARISON_ERROR,
         undefined,
         false
       );
