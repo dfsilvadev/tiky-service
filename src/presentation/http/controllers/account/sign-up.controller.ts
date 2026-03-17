@@ -17,7 +17,7 @@ import { type IController } from "../../../../domain/entities/controller.entity"
 export class SignUpController implements IController {
   constructor(private readonly _signUpUseCase: SignUpUseCase) {}
 
-  async handler(request: FastifyRequest, reply: FastifyReply) {
+  async handler(request: FastifyRequest, reply: FastifyReply): Promise<void> {
     try {
       const { name, email, password, role } = signUpValidatorSchema.parse(
         request.body
@@ -30,7 +30,7 @@ export class SignUpController implements IController {
         role
       });
 
-      return reply.status(HTTP_STATUS_SUCCESS.CREATED).send({
+      reply.status(HTTP_STATUS_SUCCESS.CREATED).send({
         statusCode: HTTP_STATUS_SUCCESS.CREATED,
         details: {
           code: SUCCESS_CODES.ACCOUNT_CREATED,
@@ -39,7 +39,7 @@ export class SignUpController implements IController {
       });
     } catch (error) {
       const { statusCode, details } = toHttpResponse(error);
-      return reply.status(statusCode).send(details);
+      reply.status(statusCode).send(details);
     }
   }
 }

@@ -16,7 +16,7 @@ export class SignInController implements IController {
     private readonly _cookieMaxAge: number
   ) {}
 
-  async handler(request: FastifyRequest, reply: FastifyReply) {
+  async handler(request: FastifyRequest, reply: FastifyReply): Promise<void> {
     try {
       const { email, password } = signInValidatorSchema.parse(request.body);
       const {
@@ -43,7 +43,7 @@ export class SignInController implements IController {
         maxAge: this._cookieMaxAge //7 * 24 * 60 * 60 // 7 days in seconds
       });
 
-      return reply.status(HTTP_STATUS_SUCCESS.OK).send({
+      reply.status(HTTP_STATUS_SUCCESS.OK).send({
         statusCode: HTTP_STATUS_SUCCESS.CREATED,
         details: {
           token
@@ -51,7 +51,7 @@ export class SignInController implements IController {
       });
     } catch (error) {
       const { statusCode, details } = toHttpResponse(error);
-      return reply.status(statusCode).send(details);
+      reply.status(statusCode).send(details);
     }
   }
 }
