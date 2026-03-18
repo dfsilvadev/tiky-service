@@ -3,15 +3,17 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { SignInUseCase } from "./sign-in.use-case";
 
-import { IEncryptionService } from "../../../domain/services/encryption.service";
-import { InMemoryAccountRepository } from "../../../infrastructure/persistence/in-memory/in-memory.account.repository";
-import { BcryptEncryptionService } from "../../../infrastructure/security/bcrypt-encryption.service";
-
 import { Role } from "../../../generated/prisma/enums";
+
 import { env } from "../../../shared/config/env";
 
+import { IEncryptionService } from "../../../domain/services/encryption.service";
 import { ITokenService } from "../../../domain/services/token.service";
+
+import { InMemoryAccountRepository } from "../../../infrastructure/persistence/in-memory/in-memory.account.repository";
 import { InMemorySessionRepository } from "../../../infrastructure/persistence/in-memory/in-memory.session.repository";
+import { BcryptEncryptionService } from "../../../infrastructure/security/bcrypt-encryption.service";
+
 import { ERROR_MESSAGES } from "../../../shared/constants/error.constants";
 
 vi.mock("bcryptjs", () => ({
