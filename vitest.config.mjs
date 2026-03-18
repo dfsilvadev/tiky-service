@@ -17,7 +17,8 @@ export default defineConfig({
         "src/application/dtos/**/*.ts",
         "src/domain/**/**/*.ts",
         "src/generated/prisma/**",
-        "src/shared/utils/http-error-mapper.ts"
+        "src/shared/utils/http-error-mapper.ts",
+        "src/shared/config/env/index.ts"
       ],
       reporter: ["text", "json", "html", "lcov"],
       include: ["src/**/*.ts"]
