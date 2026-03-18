@@ -102,4 +102,25 @@ describe("Refresh Token Use Case (Unit)", () => {
       sut.execute({ refreshToken: "valid-refresh-token" })
     ).rejects.toThrow("User not found");
   });
+
+  it("should throw UnauthorizedError if refresh token is revoked", async () => {
+    const user = await accountRepositoryMocked.create({
+      name: "John Doe",
+      email: "johndoe@email.com",
+      password: "hashed-password",
+      role: "ADMIN"
+    });
+
+    const session = await sessionRepository.create({
+      userId: user.id,
+      refreshToken: "revoked-refresh-token",
+      expiresAt: new Date(Date.now() + 1000 * 60 * 60)
+    });
+
+    await sessionRepository.revoke(session.id);
+
+    await expect(
+      sut.execute({ refreshToken: "revoked-refresh-token" })
+    ).rejects.toThrow("Invalid or expired refresh token");
+  });
 });
