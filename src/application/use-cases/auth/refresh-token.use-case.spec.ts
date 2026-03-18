@@ -9,6 +9,8 @@ import { ITokenService } from "../../../domain/services/token.service";
 import { InMemoryAccountRepository } from "../../../infrastructure/persistence/in-memory/in-memory.account.repository";
 import { InMemorySessionRepository } from "../../../infrastructure/persistence/in-memory/in-memory.session.repository";
 
+import { DUMMY_ACCOUNT } from "../../../shared/mocks/data.mocked";
+
 let sessionRepository: InMemorySessionRepository;
 let accountRepositoryMocked: InMemoryAccountRepository;
 let tokenService: ITokenService;
@@ -42,12 +44,7 @@ describe("Refresh Token Use Case (Unit)", () => {
   });
 
   it("should refresh access token successfully", async () => {
-    const user = await accountRepositoryMocked.create({
-      name: "John Doe",
-      email: "johndoe@email.com",
-      password: "hashed-password",
-      role: "ADMIN"
-    });
+    const user = await accountRepositoryMocked.create(DUMMY_ACCOUNT);
 
     const session = await sessionRepository.create({
       userId: user.id,
@@ -73,12 +70,7 @@ describe("Refresh Token Use Case (Unit)", () => {
   });
 
   it("should throw UnauthorizedError for expired refresh token", async () => {
-    const user = await accountRepositoryMocked.create({
-      name: "John Doe",
-      email: "johndoe@email.com",
-      password: "hashed-password",
-      role: "ADMIN"
-    });
+    const user = await accountRepositoryMocked.create(DUMMY_ACCOUNT);
 
     await sessionRepository.create({
       userId: user.id,
@@ -104,12 +96,7 @@ describe("Refresh Token Use Case (Unit)", () => {
   });
 
   it("should throw UnauthorizedError if refresh token is revoked", async () => {
-    const user = await accountRepositoryMocked.create({
-      name: "John Doe",
-      email: "johndoe@email.com",
-      password: "hashed-password",
-      role: "ADMIN"
-    });
+    const user = await accountRepositoryMocked.create(DUMMY_ACCOUNT);
 
     const session = await sessionRepository.create({
       userId: user.id,

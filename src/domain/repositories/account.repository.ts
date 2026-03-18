@@ -5,6 +5,7 @@ export interface IAccountCreateDTO {
   readonly email: string;
   readonly password: string;
   readonly role: Role;
+  readonly familyId: string;
 }
 
 export interface IAccountRepository {

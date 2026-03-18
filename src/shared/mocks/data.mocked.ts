@@ -12,7 +12,8 @@ const DUMMY_ACCOUNT = {
   name: "John Doe",
   email: "johndoe@example.com",
   password: DUMMY_PASS_VALUE,
-  role: Role.PLAYER
+  role: Role.PLAYER,
+  familyId: "dummy-family-id"
 };
 
 export { DUMMY_ACCOUNT, DUMMY_CREDENTIALS, DUMMY_HASH, DUMMY_PASS_VALUE };

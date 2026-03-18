@@ -19,15 +19,15 @@ export class SignUpController implements IController {
 
   async handler(request: FastifyRequest, reply: FastifyReply): Promise<void> {
     try {
-      const { name, email, password, role } = signUpValidatorSchema.parse(
-        request.body
-      );
+      const { name, email, password, role, familyId } =
+        signUpValidatorSchema.parse(request.body);
 
       await this._signUpUseCase.execute({
         name,
         email,
         password,
-        role
+        role,
+        familyId
       });
 
       reply.status(HTTP_STATUS_SUCCESS.CREATED).send({

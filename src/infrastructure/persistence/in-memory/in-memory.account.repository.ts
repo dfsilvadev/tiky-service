@@ -5,25 +5,26 @@ import { type Account } from "../../../generated/prisma/client";
 export class InMemoryAccountRepository implements IAccountRepository {
   private readonly _accounts: Account[] = [];
 
-  async findById(_id: string): Promise<Account | null> {
-    const account = this._accounts.find((account) => account.id === _id);
+  async findById(id: string): Promise<Account | null> {
+    const account = this._accounts.find((account) => account.id === id);
 
     return account ?? null;
   }
 
-  async findByEmail(_email: string): Promise<Account | null> {
-    const account = this._accounts.find((account) => account.email === _email);
+  async findByEmail(email: string): Promise<Account | null> {
+    const account = this._accounts.find((account) => account.email === email);
 
     return account ?? null;
   }
 
-  async create(_input: ISignUpDTO): Promise<Account> {
+  async create(input: ISignUpDTO): Promise<Account> {
     const account: Account = {
       id: crypto.randomUUID(),
-      name: _input.name,
-      email: _input.email,
-      passwordHash: _input.password,
-      role: _input.role ?? "PLAYER",
+      name: input.name,
+      email: input.email,
+      passwordHash: input.password,
+      familyId: crypto.randomUUID(),
+      role: input.role ?? "PLAYER",
       xpBalance: 0,
       currentStreak: 0,
       createdAt: new Date(),

@@ -3,8 +3,6 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { SignInUseCase } from "./sign-in.use-case";
 
-import { Role } from "../../../generated/prisma/enums";
-
 import { env } from "../../../shared/config/env";
 
 import { IEncryptionService } from "../../../domain/services/encryption.service";
@@ -15,6 +13,10 @@ import { InMemorySessionRepository } from "../../../infrastructure/persistence/i
 import { BcryptEncryptionService } from "../../../infrastructure/security/bcrypt-encryption.service";
 
 import { ERROR_MESSAGES } from "../../../shared/constants/error.constants";
+import {
+  DUMMY_ACCOUNT,
+  DUMMY_CREDENTIALS
+} from "../../../shared/mocks/data.mocked";
 
 vi.mock("bcryptjs", () => ({
   default: {
@@ -59,22 +61,12 @@ describe("Sign in Use Case (unit)", () => {
     vi.useRealTimers();
   });
 
-  const credentials = {
-    email: "john.doe@email.com",
-    password: "JohnDoe"
-  };
-
   it("should be able to sign in", async () => {
-    const account = await accountRepositoryMocked.create({
-      name: "John Doe",
-      email: credentials.email,
-      password: await bcrypt.hash(credentials.password, 8),
-      role: Role.ADMIN
-    });
+    const account = await accountRepositoryMocked.create(DUMMY_ACCOUNT);
 
     const response = await sut.execute({
       email: account.email,
-      password: credentials.password
+      password: DUMMY_CREDENTIALS.password
     });
 
     expect(response).toEqual({
@@ -83,22 +75,17 @@ describe("Sign in Use Case (unit)", () => {
       refreshToken: "refresh-token"
     });
     expect(bcrypt.compare).toHaveBeenCalledWith(
-      credentials.password,
+      DUMMY_CREDENTIALS.password,
       account.passwordHash
     );
   });
 
   it("should sign access and refresh tokens with the correct payload", async () => {
-    const account = await accountRepositoryMocked.create({
-      name: "John Doe",
-      email: credentials.email,
-      password: await bcrypt.hash(credentials.password, 8),
-      role: Role.ADMIN
-    });
+    const account = await accountRepositoryMocked.create(DUMMY_ACCOUNT);
 
     await sut.execute({
       email: account.email,
-      password: credentials.password
+      password: DUMMY_CREDENTIALS.password
     });
 
     expect(signTokenSpy).toHaveBeenNthCalledWith(1, {
@@ -118,18 +105,13 @@ describe("Sign in Use Case (unit)", () => {
   });
 
   it("should persist the refresh token in a session with 7 days expiration", async () => {
-    const account = await accountRepositoryMocked.create({
-      name: "John Doe",
-      email: credentials.email,
-      password: await bcrypt.hash(credentials.password, 8),
-      role: Role.ADMIN
-    });
+    const account = await accountRepositoryMocked.create(DUMMY_ACCOUNT);
 
     const createSessionSpy = vi.spyOn(sessionRepository, "create");
 
     const response = await sut.execute({
       email: account.email,
-      password: credentials.password
+      password: DUMMY_CREDENTIALS.password
     });
 
     expect(createSessionSpy).toHaveBeenCalledWith({
@@ -149,12 +131,9 @@ describe("Sign in Use Case (unit)", () => {
   });
 
   it("should not be able to sign in with non existing email", async () => {
-    await expect(
-      sut.execute({
-        email: "johndoe@email.com",
-        password: "JohnDoe"
-      })
-    ).rejects.toThrowError(ERROR_MESSAGES.INVALID_CREDENTIALS);
+    await expect(sut.execute(DUMMY_CREDENTIALS)).rejects.toThrowError(
+      ERROR_MESSAGES.INVALID_CREDENTIALS
+    );
 
     expect(bcrypt.compare).not.toHaveBeenCalled();
     expect(signTokenSpy).not.toHaveBeenCalled();
@@ -163,12 +142,7 @@ describe("Sign in Use Case (unit)", () => {
   it("should not be able to sign in with wrong password", async () => {
     (bcrypt.compare as any).mockResolvedValueOnce(false);
 
-    const account = await accountRepositoryMocked.create({
-      name: "John Doe",
-      email: credentials.email,
-      password: await bcrypt.hash(credentials.password, 8),
-      role: Role.ADMIN
-    });
+    const account = await accountRepositoryMocked.create(DUMMY_ACCOUNT);
 
     await expect(
       sut.execute({
