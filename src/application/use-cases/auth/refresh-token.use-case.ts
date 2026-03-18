@@ -5,10 +5,7 @@ import { env } from "../../../shared/config/env";
 import { type IAccountRepository } from "../../../domain/repositories/account.repository";
 import { type ISessionRepository } from "../../../domain/repositories/session.repository";
 import { type ITokenService } from "../../../domain/services/token.service";
-
-export interface IRefreshTokenDTO {
-  readonly refreshToken: string;
-}
+import { type IRefreshTokenDTO } from "../../dtos/auth/refresh-token.dto";
 
 export class RefreshTokenUseCase {
   constructor(
