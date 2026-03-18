@@ -1,6 +1,6 @@
 import { type ISignUpDTO } from "../../../application/dtos/account/sign-up.dto";
 import { type IAccountRepository } from "../../../domain/repositories/account.repository";
-import { type Account } from "../../../generated/prisma/browser";
+import { type Account } from "../../../generated/prisma/client";
 
 export class InMemoryAccountRepository implements IAccountRepository {
   private readonly _accounts: Account[] = [];
