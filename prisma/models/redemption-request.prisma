@@ -8,7 +8,7 @@ model RedemptionRequest {
   updatedAt DateTime         @updatedAt
 
   reward    Reward           @relation(fields: [rewardId], references: [id], onDelete: Restrict)
-  player    User             @relation(fields: [playerId], references: [id])
+  player    Account             @relation(fields: [playerId], references: [id])
 
   @@index([status])
   @@index([playerId])

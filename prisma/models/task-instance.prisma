@@ -13,7 +13,7 @@ model TaskInstance {
   updatedAt     DateTime       @updatedAt
 
   template      TaskTemplate   @relation(fields: [templateId], references: [id], onDelete: Restrict)
-  player        User           @relation("Player", fields: [playerId], references: [id])
+  player        Account           @relation("Player", fields: [playerId], references: [id])
   subtasks      SubtaskInstance[]
 
   @@index([playerId, date])
