@@ -22,9 +22,7 @@ export class InMemorySessionRepository implements ISessionRepository {
   }
 
   async findByToken(_token: string): Promise<Session | null> {
-    const session = this.sessions.find(
-      (s) => s.refreshToken === _token && !s.isRevoked
-    );
+    const session = this.sessions.find((s) => s.refreshToken === _token);
 
     return session ?? null;
   }
