@@ -2,7 +2,12 @@ import { type FastifyInstance } from "fastify";
 import request from "supertest";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { DUMMY_ACCOUNT } from "../../../../shared/mocks/data.mocked";
+import { prismaClient } from "../../../../infrastructure/persistence/prisma/prisma-client";
+
+import {
+  DUMMY_ACCOUNT,
+  DUMMY_FAMILY
+} from "../../../../shared/mocks/data.mocked";
 
 let app: FastifyInstance;
 
@@ -19,7 +24,13 @@ describe("Sign In Controller (e2e)", () => {
   });
 
   it("should sign in with valid credentials", async () => {
-    await request(app.server).post("/api/v1/auth/sign-up").send(DUMMY_ACCOUNT);
+    await request(app.server).post("/api/v1/families").send(DUMMY_FAMILY);
+
+    const family = await prismaClient.family.findFirstOrThrow();
+
+    await request(app.server)
+      .post("/api/v1/auth/sign-up")
+      .send({ ...DUMMY_ACCOUNT, familyId: family.id });
 
     const response = await request(app.server)
       .post("/api/v1/auth/sign-in")
