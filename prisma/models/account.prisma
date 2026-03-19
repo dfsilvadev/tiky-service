@@ -13,7 +13,7 @@ model Account {
 
   // Relacionamentos
   sessions           Session[]
-  taskTemplates      TaskTemplate[]      @relation("Author")
+  taskTemplates      TaskTemplate[]      @relation("AccountTemplates")
   taskInstances      TaskInstance[]      @relation("Player")
   redemptionRequests RedemptionRequest[]
   transactions       Transaction[]
