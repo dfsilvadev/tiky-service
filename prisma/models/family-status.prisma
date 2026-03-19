@@ -1,0 +1,5 @@
+enum FamilyStatus {
+  ACTIVE
+  INACTIVE
+  DELETED
+}

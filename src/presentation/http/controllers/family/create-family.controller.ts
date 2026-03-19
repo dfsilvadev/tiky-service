@@ -1,10 +1,6 @@
-import { type FastifyReply, type FastifyRequest } from "fastify";
-
-import { SignUpUseCase } from "../../../../application/use-cases/account/sign-up.use-case";
-
-import { signUpValidatorSchema } from "../../validators/sign-up.validator";
-
 import { toHttpResponse } from "../../../../shared/utils/http-error-mapper";
+
+import { createFamilyValidatorSchema } from "../../validators/create-family.validator";
 
 import {
   HTTP_STATUS_SUCCESS,
@@ -12,29 +8,29 @@ import {
   SUCCESS_MESSAGES
 } from "../../../../shared/constants/success.constants";
 
+import { type FastifyReply, type FastifyRequest } from "fastify";
+import { type CreateFamilyUseCase } from "../../../../application/use-cases/family/create-family.use-case";
 import { type IController } from "../../../../domain/entities/controller.entity";
 
-export class SignUpController implements IController {
-  constructor(private readonly _signUpUseCase: SignUpUseCase) {}
+export class CreateFamilyController implements IController {
+  constructor(private readonly _createFamilyUseCase: CreateFamilyUseCase) {}
 
   async handler(request: FastifyRequest, reply: FastifyReply): Promise<void> {
     try {
-      const { name, email, password, role, familyId } =
-        signUpValidatorSchema.parse(request.body);
+      const { name, description } = createFamilyValidatorSchema.parse(
+        request.body
+      );
 
-      await this._signUpUseCase.execute({
+      await this._createFamilyUseCase.execute({
         name,
-        email,
-        password,
-        role,
-        familyId
+        description
       });
 
       reply.status(HTTP_STATUS_SUCCESS.CREATED).send({
         statusCode: HTTP_STATUS_SUCCESS.CREATED,
         details: {
-          code: SUCCESS_CODES.ACCOUNT_CREATED,
-          message: SUCCESS_MESSAGES.ACCOUNT_CREATED
+          code: SUCCESS_CODES.RESOURCE_CREATED,
+          message: SUCCESS_MESSAGES.RESOURCE_CREATED
         }
       });
     } catch (error) {

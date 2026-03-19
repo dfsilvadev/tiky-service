@@ -1,10 +1,15 @@
 import { type FastifyInstance } from "fastify";
 import request from "supertest";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { prismaClient } from "../../../../infrastructure/persistence/prisma/prisma-client";
 import {
   SUCCESS_CODES,
   SUCCESS_MESSAGES
 } from "../../../../shared/constants/success.constants";
+import {
+  DUMMY_ACCOUNT,
+  DUMMY_FAMILY
+} from "../../../../shared/mocks/data.mocked";
 
 let app: FastifyInstance;
 
@@ -21,13 +26,13 @@ describe("Sign Up Controller (e2e)", () => {
   });
 
   it("should create a new account", async () => {
+    await request(app.server).post("/api/v1/families").send(DUMMY_FAMILY);
+
+    const family = await prismaClient.family.findFirstOrThrow();
+
     const response = await request(app.server)
       .post("/api/v1/auth/sign-up")
-      .send({
-        name: "John Doe",
-        email: "johndoe@email.com",
-        password: "password123"
-      });
+      .send({ ...DUMMY_ACCOUNT, familyId: family.id });
 
     expect(response.status).toBe(201);
     expect(response.body).toEqual(

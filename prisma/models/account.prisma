@@ -1,21 +1,24 @@
 model Account {
-  id            String   @id @default(uuid())
+  id            String @id @default(uuid())
   name          String
-  email         String   @unique
+  email         String @unique
   passwordHash  String
   role          Role
-  xpBalance     Int      @default(0)
-  currentStreak Int      @default(0)
-  
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  xpBalance     Int    @default(0)
+  currentStreak Int    @default(0)
+  familyId      String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relacionamentos
-  sessions            Session[]
-  taskTemplates       TaskTemplate[]       @relation("Author")
-  taskInstances       TaskInstance[]       @relation("Player")
-  redemptionRequests  RedemptionRequest[]
-  transactions        Transaction[]
+  sessions           Session[]
+  taskTemplates      TaskTemplate[]      @relation("Author")
+  taskInstances      TaskInstance[]      @relation("Player")
+  redemptionRequests RedemptionRequest[]
+  transactions       Transaction[]
+  family             Family              @relation(fields: [familyId], references: [id], onDelete: Cascade)
 
+  @@index([familyId])
   @@map("accounts")
 }

@@ -10,7 +10,7 @@ export class SignUpUseCase {
     private readonly _passwordHasher: IEncryptionService
   ) {}
 
-  async execute({ name, email, password, role }: ISignUpDTO) {
+  async execute({ name, email, password, role, familyId }: ISignUpDTO) {
     const accountAlreadyExists =
       await this._accountRepository.findByEmail(email);
 
@@ -22,7 +22,8 @@ export class SignUpUseCase {
       name,
       email,
       password: hashedPassword,
-      role
+      role,
+      familyId
     });
 
     return { account };

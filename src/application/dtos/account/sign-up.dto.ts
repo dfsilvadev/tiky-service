@@ -5,4 +5,5 @@ export interface ISignUpDTO {
   readonly email: string;
   readonly password: string;
   readonly role: Role;
+  readonly familyId: string;
 }
