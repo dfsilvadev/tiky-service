@@ -5,7 +5,7 @@ import {
   ERROR_MESSAGES
 } from "../../../shared/constants/error.constants";
 
-import { type Role } from "../../../generated/prisma/enums";
+import { type Role } from "../../../generated/prisma/client";
 
 export function verifyRoleMiddleware(rolesToVerify: Array<Role>) {
   return async (request: FastifyRequest, reply: FastifyReply) => {

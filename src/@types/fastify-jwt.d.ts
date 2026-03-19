@@ -1,6 +1,6 @@
 import "@fastify/jwt";
 
-import { type Role } from "../generated/prisma/enums";
+import { type Role } from "../generated/prisma/client";
 
 interface IAccountPayload {
   readonly name: string;

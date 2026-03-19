@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { hash } from "bcryptjs";
 
-import { Role } from "../src/generated/prisma/enums";
+import { Role } from "../src/generated/prisma/client";
 import { prismaClient } from "../src/infrastructure/persistence/prisma/prisma-client";
 
 async function main() {

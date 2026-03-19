@@ -1,4 +1,4 @@
-import { Role } from "../../generated/prisma/enums";
+import { Role } from "../../generated/prisma/client";
 
 /**
  * This file contains dummy data used across multiple test files to avoid repetition and maintain consistency.
