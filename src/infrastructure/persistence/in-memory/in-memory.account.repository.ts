@@ -23,7 +23,7 @@ export class InMemoryAccountRepository implements IAccountRepository {
       name: input.name,
       email: input.email,
       passwordHash: input.password,
-      familyId: crypto.randomUUID(),
+      familyId: input.familyId ?? crypto.randomUUID(),
       role: input.role ?? "PLAYER",
       xpBalance: 0,
       currentStreak: 0,

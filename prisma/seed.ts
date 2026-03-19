@@ -7,14 +7,12 @@ import { prismaClient } from "../src/infrastructure/persistence/prisma/prisma-cl
 async function main() {
   console.log("🌱 Iniciando o Seed do Banco de Dados do Tiky...");
 
-  await prismaClient.family.create({
+  const family = await prismaClient.family.create({
     data: {
       name: "Família Tiky",
       description: "A família oficial do Tiky, unindo jogadores e responsáveis."
     }
   });
-
-  const family = await prismaClient.family.findFirstOrThrow();
 
   const defaultPasswordHash = await hash("Senha@123", 8);
 
