@@ -22,7 +22,7 @@ const DUMMY_ACCOUNT = {
 };
 
 /**
- *
+ * DUMMY_FAMILY represents a sample family entity that can be used in tests related to family creation and management.
  */
 
 const DUMMY_FAMILY = {

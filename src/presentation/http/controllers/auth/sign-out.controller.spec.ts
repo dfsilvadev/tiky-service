@@ -26,7 +26,9 @@ describe("Sign Out Controller (e2e)", () => {
   it("should log out the user and invalidate the refresh token", async () => {
     await request(app.server).post("/api/v1/families").send(DUMMY_FAMILY);
 
-    const family = await prismaClient.family.findFirstOrThrow();
+    const family = await prismaClient.family.findFirstOrThrow({
+      where: { name: DUMMY_FAMILY.name }
+    });
 
     await request(app.server)
       .post("/api/v1/auth/sign-up")
