@@ -93,7 +93,8 @@ describe("Sign in Use Case (unit)", () => {
         account: {
           name: account.name,
           email: account.email,
-          role: account.role
+          role: account.role,
+          familySub: account.familyId
         }
       },
       options: { sub: account.id, expiresIn: env.ACCESS_TOKEN_TTL }
