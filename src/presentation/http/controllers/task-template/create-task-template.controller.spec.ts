@@ -35,7 +35,7 @@ describe("Create Task Template Controller (e2e)", () => {
 
     await request(app.server)
       .post("/api/v1/auth/sign-up")
-      .send({ ...DUMMY_ACCOUNT, familyId });
+      .send({ ...DUMMY_ACCOUNT, familyId, role: "ADMIN" });
 
     const authResponse = await request(app.server)
       .post("/api/v1/auth/sign-in")

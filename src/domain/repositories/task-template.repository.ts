@@ -1,6 +1,7 @@
 import {
   RecurrenceType,
   TaskTemplate,
+  TemplateStatus,
   Weight
 } from "../../generated/prisma/client";
 
@@ -19,6 +20,17 @@ export interface ICreateTaskTemplateDTO {
   readonly subtasks: string[];
 }
 
+export interface IFindAllTaskTemplatesQueryDTO {
+  readonly page: number;
+  readonly limit: number;
+  readonly status?: TemplateStatus;
+  readonly order: "asc" | "desc";
+}
+
 export interface ITaskTemplateRepository {
   create(_input: ICreateTaskTemplateDTO): Promise<TaskTemplate>;
+  findManyByFamilyId(
+    _familyId: string,
+    _query: IFindAllTaskTemplatesQueryDTO
+  ): Promise<{ items: TaskTemplate[]; total: number }>;
 }
