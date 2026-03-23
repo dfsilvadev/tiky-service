@@ -57,4 +57,18 @@ export class TaskTemplateRepository implements ITaskTemplateRepository {
 
     return { items: rows, total };
   }
+
+  async findOneByIdAndFamilyId(
+    id: string,
+    familyId: string
+  ): Promise<TaskTemplate | null> {
+    const row = await prismaClient.taskTemplate.findFirst({
+      where: {
+        id: id,
+        familyId: familyId
+      }
+    });
+
+    return row ?? null;
+  }
 }

@@ -2,7 +2,7 @@ import { type FastifyReply, type FastifyRequest } from "fastify";
 
 import { toHttpResponse } from "../../../../shared/utils/http-error-mapper";
 
-import { fetchTaskTemplatesQueryValidatorSchema } from "../../validators/fetch-task-templates.validator";
+import { getTaskTemplateParamsValidatorSchema } from "../../validators/get-task-template.validator";
 
 import {
   HTTP_STATUS_SUCCESS,
@@ -10,28 +10,22 @@ import {
   SUCCESS_MESSAGES
 } from "../../../../shared/constants/success.constants";
 
-import { type FetchTaskTemplatesUseCase } from "../../../../application/use-cases/task-template/fetch-task-templates.use-case";
+import { type GetTaskTemplateUseCase } from "../../../../application/use-cases/task-template/get-task-template.use-case";
 import { type IController } from "../../../../domain/entities/controller.entity";
 
-export class FetchTaskTemplatesController implements IController {
+export class GetTaskTemplateController implements IController {
   constructor(
-    private readonly _fetchTaskTemplatesUseCase: FetchTaskTemplatesUseCase
+    private readonly _getTaskTemplateUseCase: GetTaskTemplateUseCase
   ) {}
 
   async handler(request: FastifyRequest, reply: FastifyReply) {
     try {
       const { familySub: familyId } = request.user.account;
-      const { page, limit, status, order } =
-        fetchTaskTemplatesQueryValidatorSchema.parse(request.query);
+      const { id } = getTaskTemplateParamsValidatorSchema.parse(request.params);
 
-      const { items, meta } = await this._fetchTaskTemplatesUseCase.execute(
-        familyId,
-        {
-          page,
-          limit,
-          status,
-          order
-        }
+      const { taskTemplate } = await this._getTaskTemplateUseCase.execute(
+        id,
+        familyId
       );
 
       reply.status(HTTP_STATUS_SUCCESS.OK).send({
@@ -40,8 +34,7 @@ export class FetchTaskTemplatesController implements IController {
           code: SUCCESS_CODES.RESOURCES_RETRIEVED,
           message: SUCCESS_MESSAGES.RESOURCES_RETRIEVED,
           data: {
-            items,
-            meta
+            taskTemplate
           }
         }
       });

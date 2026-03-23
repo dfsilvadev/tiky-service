@@ -33,4 +33,8 @@ export interface ITaskTemplateRepository {
     _familyId: string,
     _query: IFindAllTaskTemplatesQueryDTO
   ): Promise<{ items: TaskTemplate[]; total: number }>;
+  findOneByIdAndFamilyId(
+    _id: string,
+    _familyId: string
+  ): Promise<TaskTemplate | null>;
 }

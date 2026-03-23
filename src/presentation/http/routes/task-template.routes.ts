@@ -7,13 +7,29 @@ import { verifyRoleMiddleware } from "../middlewares/verify-role.middleware";
 
 import { makeCreateTaskTemplateController } from "../../factories/make-create-task-template.controller";
 import { makeFetchTaskTemplatesController } from "../../factories/make-fetch-task-templates.controller";
+import { makeGetTaskTemplateController } from "../../factories/make-get-task-template.controller";
 
 export async function taskTemplateRoutes(app: FastifyInstance) {
+  /**
+   * All routes in this module require authentication.
+   */
   app.addHook("onRequest", verifyJwtMiddleware);
+
+  /**
+   * Only users with the "ADMIN" role can create, update, or delete task templates.
+   */
   app.addHook("preHandler", verifyRoleMiddleware(["ADMIN"]));
+
+  /**
+   * Task Template Routes
+   */
   app.post(
     "/task-templates",
     routerAdapter(makeCreateTaskTemplateController())
   );
   app.get("/task-templates", routerAdapter(makeFetchTaskTemplatesController()));
+  app.get(
+    "/task-templates/:id",
+    routerAdapter(makeGetTaskTemplateController())
+  );
 }

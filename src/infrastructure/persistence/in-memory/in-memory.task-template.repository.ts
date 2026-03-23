@@ -58,4 +58,14 @@ export class InMemoryTaskTemplateRepository implements ITaskTemplateRepository {
 
     return { items, total };
   }
+
+  async findOneByIdAndFamilyId(
+    id: string,
+    familyId: string
+  ): Promise<TaskTemplate | null> {
+    const taskTemplate = this.taskTemplates.find(
+      (template) => template.id === id && template.familyId === familyId
+    );
+    return taskTemplate ?? null;
+  }
 }
