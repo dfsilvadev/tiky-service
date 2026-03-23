@@ -8,6 +8,7 @@ import { verifyRoleMiddleware } from "../middlewares/verify-role.middleware";
 import { makeCreateTaskTemplateController } from "../../factories/make-create-task-template.controller";
 import { makeFetchTaskTemplatesController } from "../../factories/make-fetch-task-templates.controller";
 import { makeGetTaskTemplateController } from "../../factories/make-get-task-template.controller";
+import { makeUpdateTaskTemplateController } from "../../factories/make-update-task-template.controller";
 
 export async function taskTemplateRoutes(app: FastifyInstance) {
   /**
@@ -31,5 +32,9 @@ export async function taskTemplateRoutes(app: FastifyInstance) {
   app.get(
     "/task-templates/:id",
     routerAdapter(makeGetTaskTemplateController())
+  );
+  app.put(
+    "/task-templates/:id",
+    routerAdapter(makeUpdateTaskTemplateController())
   );
 }

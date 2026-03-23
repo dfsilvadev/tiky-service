@@ -1,7 +1,8 @@
 import {
   type ICreateTaskTemplateDTO,
   type IFindAllTaskTemplatesQueryDTO,
-  type ITaskTemplateRepository
+  type ITaskTemplateRepository,
+  type IUpdateTaskTemplateDTO
 } from "../../../domain/repositories/task-template.repository";
 import { type TaskTemplate } from "../../../generated/prisma/client";
 
@@ -67,5 +68,43 @@ export class InMemoryTaskTemplateRepository implements ITaskTemplateRepository {
       (template) => template.id === id && template.familyId === familyId
     );
     return taskTemplate ?? null;
+  }
+
+  async update(
+    id: string,
+    input: IUpdateTaskTemplateDTO
+  ): Promise<TaskTemplate> {
+    const index = this.taskTemplates.findIndex(
+      (template) => template.id === id
+    );
+
+    const existingTemplate = this.taskTemplates[index];
+    const updatedTemplate: TaskTemplate = {
+      ...existingTemplate,
+      ...(input.title !== undefined && { title: input.title }),
+      ...(input.description !== undefined && {
+        description: input.description
+      }),
+      ...(input.weight !== undefined && { weight: input.weight }),
+      ...(input.baseXp !== undefined && { baseXp: input.baseXp }),
+      ...(input.isMandatory !== undefined && {
+        isMandatory: input.isMandatory
+      }),
+      ...(input.recurrenceType !== undefined && {
+        recurrenceType: input.recurrenceType
+      }),
+      ...(input.recurrencePattern !== undefined && {
+        recurrencePattern: input.recurrencePattern
+      }),
+      ...(input.scheduledFor !== undefined && {
+        scheduledFor: input.scheduledFor
+      }),
+      ...(input.timeLimit !== undefined && { timeLimit: input.timeLimit }),
+      ...(input.subtasks !== undefined && { subtasks: input.subtasks }),
+      updatedAt: new Date()
+    };
+
+    this.taskTemplates[index] = updatedTemplate;
+    return updatedTemplate;
   }
 }

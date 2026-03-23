@@ -1,4 +1,4 @@
-import { ResourceDoesNotExistError } from "../../../domain/errors/resource-does-not-exist.error";
+import { ResourceNotFoundError } from "../../../domain/errors/resource-not-found.error";
 
 import { type ITaskTemplateRepository } from "../../../domain/repositories/task-template.repository";
 
@@ -11,7 +11,7 @@ export class GetTaskTemplateUseCase {
     const taskTemplate =
       await this._taskTemplateRepository.findOneByIdAndFamilyId(id, familyId);
 
-    if (!taskTemplate) throw new ResourceDoesNotExistError(id);
+    if (!taskTemplate) throw new ResourceNotFoundError(id);
 
     return { taskTemplate };
   }

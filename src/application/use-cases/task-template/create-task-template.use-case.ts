@@ -1,4 +1,4 @@
-import { ECONOMY_RULES } from "../../../domain/constants/economy.constants";
+import { getXpByWeight } from "../../../shared/utils/get-xp-by-weight";
 
 import { type ITaskTemplateRepository } from "../../../domain/repositories/task-template.repository";
 import { type ICreateTaskTemplateDTO } from "../../dtos/task-template/create-task-template.dto";
@@ -9,7 +9,7 @@ export class CreateTaskTemplateUseCase {
   ) {}
 
   async execute(data: ICreateTaskTemplateDTO) {
-    const calculatedXp = ECONOMY_RULES.TASK_WEIGHT_XP[data.weight];
+    const calculatedXp = getXpByWeight(data.weight);
 
     const createdTaskTemplate = await this._taskTemplateRepository.create({
       ...data,

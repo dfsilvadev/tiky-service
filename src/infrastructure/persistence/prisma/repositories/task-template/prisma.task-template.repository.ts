@@ -3,7 +3,8 @@ import { prismaClient } from "../../prisma-client";
 import {
   type ICreateTaskTemplateDTO,
   type IFindAllTaskTemplatesQueryDTO,
-  type ITaskTemplateRepository
+  type ITaskTemplateRepository,
+  type IUpdateTaskTemplateDTO
 } from "../../../../../domain/repositories/task-template.repository";
 import { type TaskTemplate } from "../../../../../generated/prisma/client";
 
@@ -70,5 +71,17 @@ export class TaskTemplateRepository implements ITaskTemplateRepository {
     });
 
     return row ?? null;
+  }
+
+  async update(
+    id: string,
+    input: IUpdateTaskTemplateDTO
+  ): Promise<TaskTemplate> {
+    const row = await prismaClient.taskTemplate.update({
+      where: { id },
+      data: input
+    });
+
+    return row;
   }
 }
