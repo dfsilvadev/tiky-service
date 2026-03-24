@@ -34,9 +34,7 @@ export class SignInController implements IController {
 
       reply.status(HTTP_STATUS_SUCCESS.OK).send({
         statusCode: HTTP_STATUS_SUCCESS.OK,
-        details: {
-          token
-        }
+        details: token
       });
     } catch (error) {
       const { statusCode, details } = toHttpResponse(error);

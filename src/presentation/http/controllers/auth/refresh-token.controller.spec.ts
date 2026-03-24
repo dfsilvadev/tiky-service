@@ -51,7 +51,7 @@ describe("Refresh Token Controller (e2e)", () => {
     expect(refreshResponse.statusCode).toEqual(200);
     expect(refreshResponse.body).toEqual(
       expect.objectContaining({
-        details: expect.objectContaining({ token: expect.any(String) })
+        details: expect.any(String)
       })
     );
   });

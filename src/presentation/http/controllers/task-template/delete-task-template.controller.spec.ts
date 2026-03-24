@@ -6,12 +6,8 @@ import { getXpByWeight } from "../../../../shared/utils/get-xp-by-weight";
 
 import { TemplateStatus } from "../../../../generated/prisma/client";
 
-import {
-  DUMMY_ACCOUNT,
-  DUMMY_CREDENTIALS,
-  DUMMY_FAMILY,
-  DUMMY_TASK_TEMPLATE
-} from "../../../../shared/mocks/data.mocked";
+import { DUMMY_TASK_TEMPLATE } from "../../../../shared/mocks/data.mocked";
+import { createAndAuthenticateUser } from "../../../../shared/utils/test/create-and-authenticate-user";
 
 let app: FastifyInstance;
 
@@ -28,25 +24,7 @@ describe("Delete Task Template Controller (e2e)", () => {
   });
 
   it("should be able to delete a task template", async () => {
-    const familyResponse = await request(app.server)
-      .post("/api/v1/families")
-      .send(DUMMY_FAMILY);
-
-    const {
-      family: { id: familyId }
-    } = familyResponse.body.details.data;
-
-    await request(app.server)
-      .post("/api/v1/auth/sign-up")
-      .send({ ...DUMMY_ACCOUNT, familyId, role: "ADMIN" });
-
-    const authResponse = await request(app.server)
-      .post("/api/v1/auth/sign-in")
-      .send(DUMMY_CREDENTIALS);
-
-    const {
-      details: { token }
-    } = authResponse.body;
+    const { token, familyId } = await createAndAuthenticateUser(app, true);
 
     const response = await request(app.server)
       .post("/api/v1/task-templates")
