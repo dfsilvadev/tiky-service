@@ -37,13 +37,13 @@ describe("Update Task Template Use Case (Unit)", () => {
       recurrenceType: RecurrenceType.DAILY
     };
 
-    const { taskTemplate } = await sut.execute(
+    const { updatedTaskTemplate } = await sut.execute(
       createdTemplate.id,
       createdTemplate.familyId,
       { ...updatedData }
     );
 
-    expect(taskTemplate).toMatchObject(
+    expect(updatedTaskTemplate).toMatchObject(
       expect.objectContaining({
         id: createdTemplate.id,
         title: updatedData.title,
@@ -72,7 +72,7 @@ describe("Update Task Template Use Case (Unit)", () => {
 
     const updatedWeight = Weight.BASIC;
 
-    const { taskTemplate } = await sut.execute(
+    const { updatedTaskTemplate } = await sut.execute(
       createdTemplate.id,
       createdTemplate.familyId,
       {
@@ -80,6 +80,6 @@ describe("Update Task Template Use Case (Unit)", () => {
       }
     );
 
-    expect(taskTemplate.baseXp).toBe(getXpByWeight(updatedWeight));
+    expect(updatedTaskTemplate.baseXp).toBe(getXpByWeight(updatedWeight));
   });
 });
