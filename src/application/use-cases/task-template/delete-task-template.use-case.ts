@@ -1,7 +1,6 @@
 import { ResourceNotFoundError } from "../../../domain/errors/resource-not-found.error";
 
 import { type ITaskTemplateRepository } from "../../../domain/repositories/task-template.repository";
-import { type TaskTemplate } from "../../../generated/prisma/client";
 import { type IDeleteTaskTemplateDTO } from "../../dtos/task-template/delete-task-template.dto";
 
 export class DeleteTaskTemplateUseCase {
@@ -9,10 +8,7 @@ export class DeleteTaskTemplateUseCase {
     private readonly _taskTemplateRepository: ITaskTemplateRepository
   ) {}
 
-  async execute({
-    id,
-    familyId
-  }: IDeleteTaskTemplateDTO): Promise<TaskTemplate | null> {
+  async execute({ id, familyId }: IDeleteTaskTemplateDTO) {
     const existingTemplate =
       await this._taskTemplateRepository.findOneByIdAndFamilyId(id, familyId);
 
@@ -22,6 +18,6 @@ export class DeleteTaskTemplateUseCase {
       existingTemplate.id
     );
 
-    return deletedTaskTemplate;
+    return { deletedTaskTemplate };
   }
 }
