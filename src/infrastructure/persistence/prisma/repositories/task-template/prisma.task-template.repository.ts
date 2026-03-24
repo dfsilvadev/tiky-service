@@ -40,7 +40,8 @@ export class TaskTemplateRepository implements ITaskTemplateRepository {
     const rows = await prismaClient.taskTemplate.findMany({
       where: {
         familyId: familyId,
-        status: query.status
+        status: query.status,
+        deletedAt: null
       },
       skip: (query.page - 1) * query.limit,
       take: query.limit,
@@ -52,7 +53,8 @@ export class TaskTemplateRepository implements ITaskTemplateRepository {
     const total = await prismaClient.taskTemplate.count({
       where: {
         familyId: familyId,
-        status: query.status
+        status: query.status,
+        deletedAt: null
       }
     });
 
@@ -66,7 +68,8 @@ export class TaskTemplateRepository implements ITaskTemplateRepository {
     const row = await prismaClient.taskTemplate.findFirst({
       where: {
         id: id,
-        familyId: familyId
+        familyId: familyId,
+        deletedAt: null
       }
     });
 

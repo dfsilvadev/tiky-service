@@ -26,6 +26,7 @@ export class InMemoryTaskTemplateRepository implements ITaskTemplateRepository {
       scheduledFor: null,
       createdAt: new Date(),
       updatedAt: new Date(),
+      deletedAt: null,
       subtasks: []
     };
 
@@ -39,7 +40,8 @@ export class InMemoryTaskTemplateRepository implements ITaskTemplateRepository {
   ): Promise<{ items: TaskTemplate[]; total: number }> {
     const { page, limit, status, order } = query;
     let filteredTemplates = this.taskTemplates.filter(
-      (template) => template.familyId === familyId
+      (template) =>
+        template.familyId === familyId && template.deletedAt === null
     );
 
     if (status) {
@@ -65,7 +67,10 @@ export class InMemoryTaskTemplateRepository implements ITaskTemplateRepository {
     familyId: string
   ): Promise<TaskTemplate | null> {
     const taskTemplate = this.taskTemplates.find(
-      (template) => template.id === id && template.familyId === familyId
+      (template) =>
+        template.id === id &&
+        template.familyId === familyId &&
+        template.deletedAt === null
     );
     return taskTemplate ?? null;
   }
