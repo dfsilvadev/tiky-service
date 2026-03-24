@@ -1,4 +1,4 @@
-import { TemplateStatus } from "../../../generated/prisma/enums";
+import { TemplateStatus } from "../../../generated/prisma/client";
 
 export interface IFetchTaskTemplatesDTO {
   readonly page: number;

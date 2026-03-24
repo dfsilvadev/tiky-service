@@ -41,7 +41,7 @@ export class CreateTaskTemplateController implements IController {
       });
     } catch (error) {
       const { statusCode, details } = toHttpResponse(error);
-      reply.status(statusCode).send({ error: details });
+      reply.status(statusCode).send(details);
     }
   }
 }
