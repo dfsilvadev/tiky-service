@@ -26,7 +26,12 @@ export class RefreshTokenUseCase {
 
     const newAccessToken = this._tokenService.sign({
       payload: {
-        account: { name: user.name, email: user.email, role: user.role }
+        account: {
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          familySub: user.familyId
+        }
       },
       options: { sub: user.id, expiresIn: env.ACCESS_TOKEN_TTL }
     });

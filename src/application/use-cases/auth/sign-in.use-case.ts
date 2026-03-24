@@ -34,7 +34,8 @@ export class SignInUseCase {
         account: {
           name: accountAlreadyExists.name,
           email: accountAlreadyExists.email,
-          role: accountAlreadyExists.role
+          role: accountAlreadyExists.role,
+          familySub: accountAlreadyExists.familyId
         }
       },
       options: { sub: accountAlreadyExists.id, expiresIn: env.ACCESS_TOKEN_TTL }

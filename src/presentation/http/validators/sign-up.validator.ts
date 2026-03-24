@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { Role } from "../../../generated/prisma/enums";
+import { Role } from "../../../generated/prisma/client";
 
 export const signUpValidatorSchema = z.object({
   name: z.string().min(1, "Name is required. Please provide your name."),

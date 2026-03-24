@@ -51,7 +51,7 @@ describe("Sing up Use Case (Unit)", () => {
       AccountAlreadyExistsError
     );
     await expect(sut.execute(DUMMY_ACCOUNT)).rejects.toThrowError(
-      "An account with email johndoe@example.com already exists"
+      `An account with email ${DUMMY_ACCOUNT.email} already exists`
     );
   });
 

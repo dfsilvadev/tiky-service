@@ -8,7 +8,9 @@ model Family {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  accounts Account[]
+  // Relacionamentos
+  accounts  Account[]
+  templates TaskTemplate[] @relation("FamilyTemplates")
 
   @@map("families")
 }
