@@ -22,6 +22,6 @@ export class UpdateTaskTemplateUseCase {
       baseXp
     });
 
-    return { taskTemplate: updatedTaskTemplate };
+    return { updatedTaskTemplate };
   }
 }

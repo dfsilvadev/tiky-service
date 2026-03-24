@@ -33,9 +33,7 @@ export class GetTaskTemplateController implements IController {
         details: {
           code: SUCCESS_CODES.RESOURCES_RETRIEVED,
           message: SUCCESS_MESSAGES.RESOURCES_RETRIEVED,
-          data: {
-            taskTemplate
-          }
+          data: taskTemplate
         }
       });
     } catch (error) {

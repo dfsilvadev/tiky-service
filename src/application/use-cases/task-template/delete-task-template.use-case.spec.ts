@@ -31,12 +31,12 @@ describe("Delete Task Template Use Case (Unit)", () => {
       baseXp: getXpByWeight(DUMMY_TASK_TEMPLATE.weight)
     });
 
-    const deletedTemplate = await sut.execute({
+    const { deletedTaskTemplate } = await sut.execute({
       id: createdTemplate.id,
       familyId: createdTemplate.familyId
     });
 
-    expect(deletedTemplate).toMatchObject(
+    expect(deletedTaskTemplate).toMatchObject(
       expect.objectContaining({
         status: TemplateStatus.ARCHIVED
       })

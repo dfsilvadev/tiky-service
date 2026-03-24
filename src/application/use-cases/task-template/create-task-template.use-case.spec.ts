@@ -24,9 +24,9 @@ describe("Create Task Template Use Case (Unit)", () => {
   });
 
   it("should create a new task template with valid data", async () => {
-    const { taskTemplate } = await sut.execute(DUMMY_TASK_TEMPLATE);
+    const { createdTaskTemplate } = await sut.execute(DUMMY_TASK_TEMPLATE);
 
-    expect(taskTemplate).toMatchObject(
+    expect(createdTaskTemplate).toMatchObject(
       expect.objectContaining({
         id: expect.any(String),
         title: DUMMY_TASK_TEMPLATE.title,
@@ -38,9 +38,9 @@ describe("Create Task Template Use Case (Unit)", () => {
   });
 
   it("should calculate baseXp based on the task weight", async () => {
-    const { taskTemplate } = await sut.execute(DUMMY_TASK_TEMPLATE);
+    const { createdTaskTemplate } = await sut.execute(DUMMY_TASK_TEMPLATE);
 
-    expect(taskTemplate.baseXp).toBe(
+    expect(createdTaskTemplate.baseXp).toBe(
       ECONOMY_RULES.TASK_WEIGHT_XP[DUMMY_TASK_TEMPLATE.weight]
     );
   });
