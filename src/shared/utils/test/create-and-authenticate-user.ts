@@ -17,9 +17,7 @@ export async function createAndAuthenticateUser(
     .post("/api/v1/families")
     .send(DUMMY_FAMILY);
 
-  const {
-    family: { id: familyId }
-  } = familyResponse.body.details.data;
+  const { id: familyId } = familyResponse.body.details.data;
 
   await request(app.server)
     .post("/api/v1/auth/sign-up")
