@@ -25,11 +25,12 @@ export class DeleteTaskTemplateController implements IController {
         request.params
       );
 
-      const { deletedTaskTemplate } =
-        await this._deleteTaskTemplateUseCase.execute({
+      const deletedTaskTemplate = await this._deleteTaskTemplateUseCase.execute(
+        {
           id,
           familyId
-        });
+        }
+      );
 
       reply.status(HTTP_STATUS_SUCCESS.OK).send({
         statusCode: HTTP_STATUS_SUCCESS.OK,
