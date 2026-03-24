@@ -18,6 +18,6 @@ export class DeleteTaskTemplateUseCase {
       existingTemplate.id
     );
 
-    return { deletedTaskTemplate };
+    return deletedTaskTemplate;
   }
 }

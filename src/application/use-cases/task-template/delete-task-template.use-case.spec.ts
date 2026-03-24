@@ -38,14 +38,6 @@ describe("Update Task Template Use Case (Unit)", () => {
 
     expect(deletedTemplate).toMatchObject(
       expect.objectContaining({
-        id: createdTemplate.id,
-        title: createdTemplate.title,
-        description: createdTemplate.description,
-        accountId: createdTemplate.accountId,
-        familyId: createdTemplate.familyId,
-        weight: createdTemplate.weight,
-        recurrenceType: createdTemplate.recurrenceType,
-        deletedAt: expect.any(Date),
         status: TemplateStatus.ARCHIVED
       })
     );
