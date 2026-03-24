@@ -18,7 +18,7 @@ export async function taskTemplateRoutes(app: FastifyInstance) {
   app.addHook("onRequest", verifyJwtMiddleware);
 
   /**
-   * Only users with the "ADMIN" role can create, update, or delete task templates.
+   * Only users with the "ADMIN" role can list, create, update, or delete task templates.
    */
   app.addHook("preHandler", verifyRoleMiddleware(["ADMIN"]));
 
