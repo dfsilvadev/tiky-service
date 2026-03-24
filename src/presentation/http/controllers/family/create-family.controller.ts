@@ -21,7 +21,7 @@ export class CreateFamilyController implements IController {
         request.body
       );
 
-      const newFamily = await this._createFamilyUseCase.execute({
+      const { family } = await this._createFamilyUseCase.execute({
         name,
         description
       });
@@ -31,7 +31,7 @@ export class CreateFamilyController implements IController {
         details: {
           code: SUCCESS_CODES.RESOURCE_CREATED,
           message: SUCCESS_MESSAGES.RESOURCE_CREATED,
-          data: newFamily
+          data: family
         }
       });
     } catch (error) {
