@@ -20,14 +20,14 @@ export class InMemoryTaskTemplateRepository implements ITaskTemplateRepository {
       status: "ACTIVE",
       weight: input.weight,
       recurrenceType: input.recurrenceType,
-      isMandatory: false,
-      recurrencePattern: null,
-      timeLimit: null,
-      scheduledFor: null,
+      isMandatory: input.isMandatory,
+      recurrencePattern: input.recurrencePattern ?? null,
+      timeLimit: input.timeLimit ?? null,
+      scheduledFor: input.scheduledFor ?? null,
       createdAt: new Date(),
       updatedAt: new Date(),
       deletedAt: null,
-      subtasks: []
+      subtasks: input.subtasks
     };
 
     this.taskTemplates.push(newTaskTemplate);
@@ -41,6 +41,10 @@ export class InMemoryTaskTemplateRepository implements ITaskTemplateRepository {
     const index = this.taskTemplates.findIndex(
       (template) => template.id === id
     );
+
+    if (index === -1) {
+      throw new Error(`TaskTemplate with id '${id}' not found`);
+    }
 
     const existingTemplate = this.taskTemplates[index];
     const updatedTemplate: TaskTemplate = {
