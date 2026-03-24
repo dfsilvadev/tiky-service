@@ -34,6 +34,57 @@ export class InMemoryTaskTemplateRepository implements ITaskTemplateRepository {
     return newTaskTemplate;
   }
 
+  async update(
+    id: string,
+    input: IUpdateTaskTemplateDTO
+  ): Promise<TaskTemplate> {
+    const index = this.taskTemplates.findIndex(
+      (template) => template.id === id
+    );
+
+    const existingTemplate = this.taskTemplates[index];
+    const updatedTemplate: TaskTemplate = {
+      ...existingTemplate,
+      ...(input.title !== undefined && { title: input.title }),
+      ...(input.description !== undefined && {
+        description: input.description
+      }),
+      ...(input.weight !== undefined && { weight: input.weight }),
+      ...(input.baseXp !== undefined && { baseXp: input.baseXp }),
+      ...(input.isMandatory !== undefined && {
+        isMandatory: input.isMandatory
+      }),
+      ...(input.recurrenceType !== undefined && {
+        recurrenceType: input.recurrenceType
+      }),
+      ...(input.recurrencePattern !== undefined && {
+        recurrencePattern: input.recurrencePattern
+      }),
+      ...(input.scheduledFor !== undefined && {
+        scheduledFor: input.scheduledFor
+      }),
+      ...(input.timeLimit !== undefined && { timeLimit: input.timeLimit }),
+      ...(input.subtasks !== undefined && { subtasks: input.subtasks }),
+      updatedAt: new Date()
+    };
+
+    this.taskTemplates[index] = updatedTemplate;
+    return updatedTemplate;
+  }
+
+  async delete(id: string): Promise<TaskTemplate | null> {
+    const index = this.taskTemplates.findIndex(
+      (template) => template.id === id
+    );
+
+    if (index !== -1) {
+      this.taskTemplates[index].deletedAt = new Date();
+      this.taskTemplates[index].status = "ARCHIVED";
+    }
+
+    return this.taskTemplates[index] ?? null;
+  }
+
   async findManyByFamilyId(
     familyId: string,
     query: IFindAllTaskTemplatesQueryDTO
@@ -73,43 +124,5 @@ export class InMemoryTaskTemplateRepository implements ITaskTemplateRepository {
         template.deletedAt === null
     );
     return taskTemplate ?? null;
-  }
-
-  async update(
-    id: string,
-    input: IUpdateTaskTemplateDTO
-  ): Promise<TaskTemplate> {
-    const index = this.taskTemplates.findIndex(
-      (template) => template.id === id
-    );
-
-    const existingTemplate = this.taskTemplates[index];
-    const updatedTemplate: TaskTemplate = {
-      ...existingTemplate,
-      ...(input.title !== undefined && { title: input.title }),
-      ...(input.description !== undefined && {
-        description: input.description
-      }),
-      ...(input.weight !== undefined && { weight: input.weight }),
-      ...(input.baseXp !== undefined && { baseXp: input.baseXp }),
-      ...(input.isMandatory !== undefined && {
-        isMandatory: input.isMandatory
-      }),
-      ...(input.recurrenceType !== undefined && {
-        recurrenceType: input.recurrenceType
-      }),
-      ...(input.recurrencePattern !== undefined && {
-        recurrencePattern: input.recurrencePattern
-      }),
-      ...(input.scheduledFor !== undefined && {
-        scheduledFor: input.scheduledFor
-      }),
-      ...(input.timeLimit !== undefined && { timeLimit: input.timeLimit }),
-      ...(input.subtasks !== undefined && { subtasks: input.subtasks }),
-      updatedAt: new Date()
-    };
-
-    this.taskTemplates[index] = updatedTemplate;
-    return updatedTemplate;
   }
 }

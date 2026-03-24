@@ -6,7 +6,11 @@ import {
   type ITaskTemplateRepository,
   type IUpdateTaskTemplateDTO
 } from "../../../../../domain/repositories/task-template.repository";
-import { type TaskTemplate } from "../../../../../generated/prisma/client";
+
+import {
+  TemplateStatus,
+  type TaskTemplate
+} from "../../../../../generated/prisma/client";
 
 export class TaskTemplateRepository implements ITaskTemplateRepository {
   async create(input: ICreateTaskTemplateDTO): Promise<TaskTemplate> {
@@ -28,6 +32,27 @@ export class TaskTemplateRepository implements ITaskTemplateRepository {
     });
 
     return row;
+  }
+
+  async update(
+    id: string,
+    input: IUpdateTaskTemplateDTO
+  ): Promise<TaskTemplate> {
+    const row = await prismaClient.taskTemplate.update({
+      where: { id },
+      data: input
+    });
+
+    return row;
+  }
+
+  async delete(id: string): Promise<TaskTemplate | null> {
+    const row = await prismaClient.taskTemplate.update({
+      where: { id },
+      data: { deletedAt: new Date(), status: TemplateStatus.ARCHIVED }
+    });
+
+    return row ?? null;
   }
 
   async findManyByFamilyId(
@@ -74,17 +99,5 @@ export class TaskTemplateRepository implements ITaskTemplateRepository {
     });
 
     return row ?? null;
-  }
-
-  async update(
-    id: string,
-    input: IUpdateTaskTemplateDTO
-  ): Promise<TaskTemplate> {
-    const row = await prismaClient.taskTemplate.update({
-      where: { id },
-      data: input
-    });
-
-    return row;
   }
 }

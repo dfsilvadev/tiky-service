@@ -42,6 +42,8 @@ export interface IUpdateTaskTemplateDTO {
 
 export interface ITaskTemplateRepository {
   create(_input: ICreateTaskTemplateDTO): Promise<TaskTemplate>;
+  update(_id: string, _input: IUpdateTaskTemplateDTO): Promise<TaskTemplate>;
+  delete(_id: string): Promise<TaskTemplate | null>;
   findManyByFamilyId(
     _familyId: string,
     _query: IFindAllTaskTemplatesQueryDTO
@@ -50,5 +52,4 @@ export interface ITaskTemplateRepository {
     _id: string,
     _familyId: string
   ): Promise<TaskTemplate | null>;
-  update(_id: string, _input: IUpdateTaskTemplateDTO): Promise<TaskTemplate>;
 }
