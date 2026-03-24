@@ -19,6 +19,7 @@ model TaskTemplate {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 
   // Relações
   account   Account        @relation("AccountTemplates", fields: [accountId], references: [id])
