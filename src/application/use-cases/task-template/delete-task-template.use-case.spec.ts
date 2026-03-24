@@ -15,7 +15,7 @@ import { getXpByWeight } from "../../../shared/utils/get-xp-by-weight";
 let taskTemplateRepository: ITaskTemplateRepository;
 let sut: DeleteTaskTemplateUseCase;
 
-describe("Update Task Template Use Case (Unit)", () => {
+describe("Delete Task Template Use Case (Unit)", () => {
   beforeEach(() => {
     taskTemplateRepository = new InMemoryTaskTemplateRepository();
     sut = new DeleteTaskTemplateUseCase(taskTemplateRepository);

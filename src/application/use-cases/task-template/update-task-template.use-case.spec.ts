@@ -70,7 +70,7 @@ describe("Update Task Template Use Case (Unit)", () => {
       baseXp: getXpByWeight(DUMMY_TASK_TEMPLATE.weight)
     });
 
-    const updatedWeight = Weight.IMPORTANT;
+    const updatedWeight = Weight.BASIC;
 
     const { taskTemplate } = await sut.execute(
       createdTemplate.id,
@@ -80,6 +80,6 @@ describe("Update Task Template Use Case (Unit)", () => {
       }
     );
 
-    expect(taskTemplate.baseXp).toBe(getXpByWeight(DUMMY_TASK_TEMPLATE.weight));
+    expect(taskTemplate.baseXp).toBe(getXpByWeight(updatedWeight));
   });
 });
