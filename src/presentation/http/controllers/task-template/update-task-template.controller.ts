@@ -39,10 +39,8 @@ export class UpdateTaskTemplateController implements IController {
         subtasks
       } = updateTaskTemplateBodyValidatorSchema.parse(request.body);
 
-      const { taskTemplate } = await this._updateTaskTemplateUseCase.execute(
-        id,
-        familyId,
-        {
+      const { updatedTaskTemplate } =
+        await this._updateTaskTemplateUseCase.execute(id, familyId, {
           title,
           description,
           weight,
@@ -52,15 +50,14 @@ export class UpdateTaskTemplateController implements IController {
           scheduledFor,
           timeLimit,
           subtasks
-        }
-      );
+        });
 
       reply.status(HTTP_STATUS_SUCCESS.OK).send({
         statusCode: HTTP_STATUS_SUCCESS.OK,
         details: {
           code: SUCCESS_CODES.RESOURCE_UPDATED,
           message: SUCCESS_MESSAGES.RESOURCE_UPDATED,
-          data: taskTemplate
+          data: updatedTaskTemplate
         }
       });
     } catch (error) {

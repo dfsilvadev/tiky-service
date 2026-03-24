@@ -25,18 +25,19 @@ export class CreateTaskTemplateController implements IController {
       } = request.user;
       const dto = createTaskTemplateValidatorSchema.parse(request.body);
 
-      const { taskTemplate } = await this._createTaskTemplateUseCase.execute({
-        ...dto,
-        accountId: sub,
-        familyId: familySub
-      });
+      const { createdTaskTemplate } =
+        await this._createTaskTemplateUseCase.execute({
+          ...dto,
+          accountId: sub,
+          familyId: familySub
+        });
 
       reply.status(HTTP_STATUS_SUCCESS.CREATED).send({
         statusCode: HTTP_STATUS_SUCCESS.CREATED,
         details: {
           code: SUCCESS_CODES.RESOURCE_CREATED,
           message: SUCCESS_MESSAGES.RESOURCE_CREATED,
-          data: taskTemplate
+          data: createdTaskTemplate
         }
       });
     } catch (error) {

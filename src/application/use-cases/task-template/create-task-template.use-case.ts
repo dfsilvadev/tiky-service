@@ -16,6 +16,6 @@ export class CreateTaskTemplateUseCase {
       baseXp: calculatedXp
     });
 
-    return { taskTemplate: createdTaskTemplate };
+    return { createdTaskTemplate };
   }
 }
