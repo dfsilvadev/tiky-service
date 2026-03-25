@@ -1,0 +1,2 @@
+-- AlterEnum
+ALTER TYPE "Weight" ADD VALUE 'SUGGESTED';
