@@ -11,6 +11,7 @@ export interface ICreateTaskTemplateDTO {
   readonly accountId: string;
   readonly familyId: string;
   readonly baseXp: number;
+  readonly status?: TemplateStatus;
   readonly weight: Weight;
   readonly recurrenceType: RecurrenceType;
   readonly isMandatory: boolean;
