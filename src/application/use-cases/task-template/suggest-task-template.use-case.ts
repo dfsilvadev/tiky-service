@@ -17,7 +17,7 @@ export class SuggestTaskTemplateUseCase {
   async execute(input: ISuggestTaskTemplateDTO) {
     const baseXp = getXpByWeight(Weight.SUGGESTED);
 
-    const createdTaskTemplate = await this._taskTemplateRepository.create({
+    const suggestedTaskTemplate = await this._taskTemplateRepository.create({
       ...input,
       baseXp,
       status: TemplateStatus.PENDING_APPROVAL,
@@ -27,6 +27,6 @@ export class SuggestTaskTemplateUseCase {
       subtasks: []
     });
 
-    return { createdTaskTemplate };
+    return { suggestedTaskTemplate };
   }
 }

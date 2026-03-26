@@ -25,11 +25,11 @@ describe("Suggest Task Template Use Case (Unit)", () => {
   });
 
   it("should create a new suggested task template with valid data", async () => {
-    const { createdTaskTemplate } = await sut.execute(
+    const { suggestedTaskTemplate } = await sut.execute(
       DUMMY_SUGGESTED_TASK_TEMPLATE
     );
 
-    expect(createdTaskTemplate).toMatchObject(
+    expect(suggestedTaskTemplate).toMatchObject(
       expect.objectContaining({
         title: DUMMY_SUGGESTED_TASK_TEMPLATE.title,
         description: DUMMY_SUGGESTED_TASK_TEMPLATE.description,
@@ -42,10 +42,10 @@ describe("Suggest Task Template Use Case (Unit)", () => {
   });
 
   it("should calculate baseXp based on the task weight", async () => {
-    const { createdTaskTemplate } = await sut.execute(
+    const { suggestedTaskTemplate } = await sut.execute(
       DUMMY_SUGGESTED_TASK_TEMPLATE
     );
 
-    expect(createdTaskTemplate.baseXp).toBe(getXpByWeight(Weight.SUGGESTED));
+    expect(suggestedTaskTemplate.baseXp).toBe(getXpByWeight(Weight.SUGGESTED));
   });
 });
