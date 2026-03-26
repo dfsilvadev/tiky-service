@@ -25,11 +25,12 @@ describe("Suggest Task Template Controller (e2e)", () => {
 
   it("should suggest task templates based on the provided title, description, and time limit", async () => {
     const { token } = await createAndAuthenticateUser(app);
+    const { title, description, timeLimit } = DUMMY_SUGGESTED_TASK_TEMPLATE;
 
     const response = await request(app.server)
       .post("/api/v1/task-templates/suggest")
       .set("Authorization", `Bearer ${token}`)
-      .send(DUMMY_SUGGESTED_TASK_TEMPLATE);
+      .send({ title, description, timeLimit });
 
     expect(response.status).toBe(HTTP_STATUS_SUCCESS.CREATED);
     expect(response.body).toHaveProperty(
