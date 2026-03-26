@@ -9,6 +9,9 @@ import { routerAdapter } from "../adapters/router.adapter";
 export async function authenticationRoutes(
   app: FastifyInstance
 ): Promise<void> {
+  /**
+   * SIGN IN, SIGN OUT AND REFRESH TOKEN CONTEXT
+   */
   app.post("/auth/sign-in", routerAdapter(makeSignInController(app)));
   app.post("/auth/sign-out", routerAdapter(makeSignOutController()));
   app.post(
