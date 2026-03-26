@@ -36,7 +36,7 @@ export class SuggestTaskTemplateController implements IController {
           timeLimit
         });
 
-      return reply.status(HTTP_STATUS_SUCCESS.CREATED).send({
+      reply.status(HTTP_STATUS_SUCCESS.CREATED).send({
         statusCode: HTTP_STATUS_SUCCESS.CREATED,
         details: {
           code: SUCCESS_CODES.RESOURCE_CREATED,
@@ -46,7 +46,7 @@ export class SuggestTaskTemplateController implements IController {
       });
     } catch (error) {
       const { statusCode, details } = toHttpResponse(error);
-      return reply.status(statusCode).send(details);
+      reply.status(statusCode).send(details);
     }
   }
 }
