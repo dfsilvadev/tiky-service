@@ -9,37 +9,53 @@ import { makeCreateTaskTemplateController } from "../../factories/make-create-ta
 import { makeDeleteTaskTemplateController } from "../../factories/make-delete-task-template.controller";
 import { makeFetchTaskTemplatesController } from "../../factories/make-fetch-task-templates.controller";
 import { makeGetTaskTemplateController } from "../../factories/make-get-task-template.controller";
+import { makeSuggestTaskTemplateController } from "../../factories/make-suggest-task-template.controller";
 import { makeUpdateTaskTemplateController } from "../../factories/make-update-task-template.controller";
 
 export async function taskTemplateRoutes(app: FastifyInstance) {
   /**
-   * All routes in this module require authentication.
+   * [FILE GLOBAL HOOK]
+   * Every route in this module requires the user to be authenticated.
    */
   app.addHook("onRequest", verifyJwtMiddleware);
 
   /**
-   * Only users with the "ADMIN" role can list, create, update, or delete task templates.
+   * ADMIN CONTEXT
    */
-  app.addHook("preHandler", verifyRoleMiddleware(["ADMIN"]));
+  app.register(async function adminRoutes(adminApp: FastifyInstance) {
+    adminApp.addHook("preHandler", verifyRoleMiddleware(["ADMIN"]));
+
+    adminApp.post(
+      "/task-templates",
+      routerAdapter(makeCreateTaskTemplateController())
+    );
+    adminApp.get(
+      "/task-templates",
+      routerAdapter(makeFetchTaskTemplatesController())
+    );
+    adminApp.get(
+      "/task-templates/:id",
+      routerAdapter(makeGetTaskTemplateController())
+    );
+    adminApp.put(
+      "/task-templates/:id",
+      routerAdapter(makeUpdateTaskTemplateController())
+    );
+    adminApp.delete(
+      "/task-templates/:id",
+      routerAdapter(makeDeleteTaskTemplateController())
+    );
+  });
 
   /**
-   * Task Template Routes
+   * PLAYER CONTEXT
    */
-  app.post(
-    "/task-templates",
-    routerAdapter(makeCreateTaskTemplateController())
-  );
-  app.get("/task-templates", routerAdapter(makeFetchTaskTemplatesController()));
-  app.get(
-    "/task-templates/:id",
-    routerAdapter(makeGetTaskTemplateController())
-  );
-  app.put(
-    "/task-templates/:id",
-    routerAdapter(makeUpdateTaskTemplateController())
-  );
-  app.delete(
-    "/task-templates/:id",
-    routerAdapter(makeDeleteTaskTemplateController())
-  );
+  app.register(async function playerRoutes(playerApp: FastifyInstance) {
+    playerApp.addHook("preHandler", verifyRoleMiddleware(["PLAYER"]));
+
+    playerApp.post(
+      "/task-templates/suggest",
+      routerAdapter(makeSuggestTaskTemplateController())
+    );
+  });
 }

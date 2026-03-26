@@ -1,8 +1,7 @@
 import { RecurrenceType, Role, Weight } from "../../generated/prisma/client";
 
 /**
- * This file contains dummy data used across multiple test files to avoid repetition and maintain consistency.
- * It includes a dummy account, credentials, and hash values that can be imported and used in various test cases.
+ * This DUMMY_* constants represent sample data from accounts
  */
 
 const DUMMY_PASS_VALUE = "dummy-value";
@@ -22,7 +21,7 @@ const DUMMY_ACCOUNT = {
 };
 
 /**
- * DUMMY_FAMILY represents a sample family entity that can be used in tests related to family creation and management.
+ * This DUMMY_* constants represent sample data from families
  */
 
 const DUMMY_FAMILY = {
@@ -30,25 +29,41 @@ const DUMMY_FAMILY = {
   description: "A family for the Doe clan"
 };
 
-const DUMMY_TASK_TEMPLATE = {
-  title: "Sample Task Template",
-  description: "This is a sample task template for testing purposes.",
+/**
+ * These DUMMY_* constants represent sample data from task templates
+ */
+
+const DUMMY_BODY_TASK_TEMPLATE = {
   accountId: "dummy-account-id",
   familyId: "dummy-family-id",
+  timeLimit: "18:00"
+};
+
+const DUMMY_TASK_TEMPLATE = {
+  ...DUMMY_BODY_TASK_TEMPLATE,
+  title: "Sample Task Template",
+  description: "This is a sample task template for testing purposes.",
   weight: Weight.IMPORTANT,
   recurrenceType: RecurrenceType.WEEKLY,
   isMandatory: true,
   recurrencePattern: "1,3,5", // Every Monday, Wednesday, and Friday
   scheduledFor: new Date(),
-  timeLimit: "18:00",
   subtasks: []
 };
 
+const DUMMY_SUGGESTED_TASK_TEMPLATE = {
+  ...DUMMY_BODY_TASK_TEMPLATE,
+  title: "Sample Suggested Task Template",
+  description: "This is a sample suggested task template for testing purposes."
+};
+
+// Exporting all dummy data constants for use in tests and other parts of the application
 export {
   DUMMY_ACCOUNT,
   DUMMY_CREDENTIALS,
   DUMMY_FAMILY,
   DUMMY_HASH,
   DUMMY_PASS_VALUE,
+  DUMMY_SUGGESTED_TASK_TEMPLATE,
   DUMMY_TASK_TEMPLATE
 };

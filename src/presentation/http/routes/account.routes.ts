@@ -5,5 +5,8 @@ import { makeSignUpController } from "../../factories/make-sign-up.controller";
 import { routerAdapter } from "../adapters/router.adapter";
 
 export async function accountRoutes(app: FastifyInstance): Promise<void> {
+  /**
+   * SIGN UP CONTEXT
+   */
   app.post("/auth/sign-up", routerAdapter(makeSignUpController()));
 }

@@ -7,10 +7,11 @@ import {
 
 export interface ICreateTaskTemplateDTO {
   readonly title: string;
-  readonly description?: string | undefined;
+  readonly description?: string | null;
   readonly accountId: string;
   readonly familyId: string;
   readonly baseXp: number;
+  readonly status?: TemplateStatus;
   readonly weight: Weight;
   readonly recurrenceType: RecurrenceType;
   readonly isMandatory: boolean;
