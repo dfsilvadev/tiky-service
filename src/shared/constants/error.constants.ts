@@ -37,6 +37,7 @@ export const ERROR_CODES = {
   // Conflicts (409)
   ACCOUNT_ALREADY_EXISTS: "ACCOUNT_ALREADY_EXISTS",
   ACCOUNT_NOT_FOUND: "ACCOUNT_NOT_FOUND",
+  CONFLICT_ERROR: "CONFLICT_ERROR",
 
   // Generic (500)
   INTERNAL_SERVER_ERROR: "INTERNAL_SERVER_ERROR",
@@ -88,6 +89,8 @@ export const ERROR_MESSAGES = {
   // Conflicts (409)
   USER_EXISTS:
     "A user with this email address already exists. Please use a different email or try logging in",
+  CONFLICT_ERROR:
+    "The request could not be completed due to a conflict with the current state of the resource",
 
   // Generic (500)
   INTERNAL_SERVER_ERROR:

@@ -1,5 +1,6 @@
 import {
   type RecurrenceType,
+  type TemplateStatus,
   type Weight
 } from "../../../generated/prisma/client";
 
@@ -7,6 +8,7 @@ export interface IUpdateTaskTemplateDTO {
   readonly title?: string;
   readonly description?: string | null;
   readonly weight?: Weight;
+  readonly status?: TemplateStatus;
   readonly recurrenceType?: RecurrenceType;
   readonly isMandatory?: boolean;
   readonly recurrencePattern?: string | null;

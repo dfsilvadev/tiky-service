@@ -5,40 +5,39 @@ import {
   type Weight
 } from "../../generated/prisma/client";
 
-export interface ICreateTaskTemplateDTO {
+export interface ICommonTaskTemplateData {
   readonly title: string;
-  readonly description?: string | null;
-  readonly accountId: string;
-  readonly familyId: string;
-  readonly baseXp: number;
-  readonly status?: TemplateStatus;
   readonly weight: Weight;
+  readonly baseXp: number;
   readonly recurrenceType: RecurrenceType;
   readonly isMandatory: boolean;
+  readonly status: TemplateStatus;
+  readonly subtasks: string[];
+  readonly description?: string | null;
   readonly recurrencePattern?: string | null;
   readonly scheduledFor?: Date | null;
   readonly timeLimit?: string | null;
-  readonly subtasks: string[];
+  readonly deletedAt?: Date | null;
 }
+
+export interface ICreateTaskTemplateDTO extends Omit<
+  ICommonTaskTemplateData,
+  "deletedAt" | "status"
+> {
+  readonly accountId: string;
+  readonly familyId: string;
+  readonly status?: TemplateStatus;
+}
+
+export type IUpdateTaskTemplateDTO = Partial<
+  Omit<ICreateTaskTemplateDTO, "accountId" | "familyId">
+>;
 
 export interface IFindAllTaskTemplatesQueryDTO {
   readonly page: number;
   readonly limit: number;
   readonly status?: TemplateStatus;
   readonly order: "asc" | "desc";
-}
-
-export interface IUpdateTaskTemplateDTO {
-  readonly title?: string;
-  readonly description?: string | null;
-  readonly weight?: Weight;
-  readonly baseXp?: number;
-  readonly recurrenceType?: RecurrenceType;
-  readonly isMandatory?: boolean;
-  readonly recurrencePattern?: string | null;
-  readonly scheduledFor?: Date | null;
-  readonly timeLimit?: string | null;
-  readonly subtasks?: string[];
 }
 
 export interface ITaskTemplateRepository {

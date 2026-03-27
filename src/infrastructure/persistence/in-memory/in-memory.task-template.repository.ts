@@ -54,6 +54,7 @@ export class InMemoryTaskTemplateRepository implements ITaskTemplateRepository {
         description: input.description
       }),
       ...(input.weight !== undefined && { weight: input.weight }),
+      ...(input.status !== undefined && { status: input.status }),
       ...(input.baseXp !== undefined && { baseXp: input.baseXp }),
       ...(input.isMandatory !== undefined && {
         isMandatory: input.isMandatory
