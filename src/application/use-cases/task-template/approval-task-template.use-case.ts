@@ -31,7 +31,7 @@ export class ApprovalTaskTemplateUseCase {
     const approvedTaskTemplate = await this._taskTemplateRepository.update(
       input.templateId,
       {
-        ...input,
+        weight: input.weight,
         baseXp,
         status: TemplateStatus.ACTIVE
       }
