@@ -1,4 +1,9 @@
-import { RecurrenceType, Role, Weight } from "../../generated/prisma/client";
+import {
+  RecurrenceType,
+  Role,
+  TemplateStatus,
+  Weight
+} from "../../generated/prisma/client";
 
 /**
  * This DUMMY_* constants represent sample data from accounts
@@ -36,7 +41,10 @@ const DUMMY_FAMILY = {
 const DUMMY_BODY_TASK_TEMPLATE = {
   accountId: "dummy-account-id",
   familyId: "dummy-family-id",
-  timeLimit: "18:00"
+  recurrenceType: RecurrenceType.WEEKLY,
+  isMandatory: true,
+  timeLimit: "18:00",
+  subtasks: []
 };
 
 const DUMMY_TASK_TEMPLATE = {
@@ -44,17 +52,16 @@ const DUMMY_TASK_TEMPLATE = {
   title: "Sample Task Template",
   description: "This is a sample task template for testing purposes.",
   weight: Weight.IMPORTANT,
-  recurrenceType: RecurrenceType.WEEKLY,
-  isMandatory: true,
   recurrencePattern: "1,3,5", // Every Monday, Wednesday, and Friday
-  scheduledFor: new Date(),
-  subtasks: []
+  scheduledFor: new Date()
 };
 
 const DUMMY_SUGGESTED_TASK_TEMPLATE = {
   ...DUMMY_BODY_TASK_TEMPLATE,
   title: "Sample Suggested Task Template",
-  description: "This is a sample suggested task template for testing purposes."
+  description: "This is a sample suggested task template for testing purposes.",
+  weight: Weight.SUGGESTED,
+  status: TemplateStatus.PENDING_APPROVAL
 };
 
 // Exporting all dummy data constants for use in tests and other parts of the application

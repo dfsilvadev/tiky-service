@@ -5,7 +5,11 @@ import { UpdateTaskTemplateUseCase } from "./update-task-template.use-case";
 import { ITaskTemplateRepository } from "../../../domain/repositories/task-template.repository";
 import { InMemoryTaskTemplateRepository } from "../../../infrastructure/persistence/in-memory/in-memory.task-template.repository";
 
-import { RecurrenceType, Weight } from "../../../generated/prisma/client";
+import {
+  RecurrenceType,
+  TemplateStatus,
+  Weight
+} from "../../../generated/prisma/client";
 
 import { ERROR_MESSAGES } from "../../../shared/constants/error.constants";
 import { DUMMY_TASK_TEMPLATE } from "../../../shared/mocks/data.mocked";
@@ -81,5 +85,22 @@ describe("Update Task Template Use Case (Unit)", () => {
     );
 
     expect(updatedTaskTemplate.baseXp).toBe(getXpByWeight(updatedWeight));
+  });
+
+  it("should be able to update the status of a task template", async () => {
+    const createdTemplate = await taskTemplateRepository.create({
+      ...DUMMY_TASK_TEMPLATE,
+      baseXp: getXpByWeight(DUMMY_TASK_TEMPLATE.weight)
+    });
+
+    const { updatedTaskTemplate } = await sut.execute(
+      createdTemplate.id,
+      createdTemplate.familyId,
+      {
+        status: TemplateStatus.ARCHIVED
+      }
+    );
+
+    expect(updatedTaskTemplate.status).toBe(TemplateStatus.ARCHIVED);
   });
 });

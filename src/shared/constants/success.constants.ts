@@ -21,6 +21,7 @@ export const SUCCESS_CODES = {
   AUTHENTICATED: "AUTHENTICATED",
   TOKEN_REFRESHED: "TOKEN_REFRESHED",
   LOGGED_OUT: "LOGGED_OUT",
+  TASK_TEMPLATE_APPROVED: "TASK_TEMPLATE_APPROVED",
 
   // Creation (201)
   ACCOUNT_CREATED: "ACCOUNT_CREATED",
@@ -58,6 +59,7 @@ export const SUCCESS_MESSAGES = {
   AUTHENTICATED: "You have been authenticated successfully. Welcome back",
   TOKEN_REFRESHED: "Your session has been refreshed successfully",
   LOGGED_OUT: "You have been logged out successfully",
+  TASK_TEMPLATE_APPROVED: "Task template approved successfully",
 
   // Creation (201)
   ACCOUNT_CREATED:

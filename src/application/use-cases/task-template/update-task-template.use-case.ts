@@ -16,7 +16,9 @@ export class UpdateTaskTemplateUseCase {
 
     if (!existingTemplate) throw new ResourceNotFoundError(id);
 
-    const baseXp = input.weight && getXpByWeight(input.weight);
+    const baseXp = input.weight
+      ? getXpByWeight(input.weight)
+      : existingTemplate.baseXp;
     const updatedTaskTemplate = await this._taskTemplateRepository.update(id, {
       ...input,
       baseXp
