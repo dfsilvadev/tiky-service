@@ -1,10 +1,17 @@
 model SubtaskInstance {
-  id             String       @id @default(uuid())
+  id             String         @id @default(uuid())
+  status         InstanceStatus @default(PENDING)
+  proofImageUrl  String?
+  rejectedReason String?
   taskInstanceId String
   description    String
-  isCompleted    Boolean      @default(false)
+  isDeleted      Boolean        @default(false)
 
-  taskInstance   TaskInstance @relation(fields: [taskInstanceId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  taskInstance TaskInstance @relation(fields: [taskInstanceId], references: [id], onDelete: Cascade)
 
   @@map("subtask_instances")
 }
