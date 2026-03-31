@@ -1,6 +1,7 @@
 model TaskTemplate {
   id        String @id @default(uuid())
   accountId String
+  playerId  String
   familyId  String
 
   title       String
@@ -17,8 +18,8 @@ model TaskTemplate {
   status   TemplateStatus @default(ACTIVE)
   subtasks String[] // Array de textos para tarefas EPIC
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
   // Relações
