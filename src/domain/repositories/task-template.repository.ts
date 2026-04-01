@@ -25,6 +25,7 @@ export interface ICreateTaskTemplateDTO extends Omit<
   "deletedAt" | "status"
 > {
   readonly accountId: string;
+  readonly playerId: string;
   readonly familyId: string;
   readonly status?: TemplateStatus;
 }

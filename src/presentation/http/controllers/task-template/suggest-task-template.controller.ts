@@ -30,6 +30,7 @@ export class SuggestTaskTemplateController implements IController {
       const { suggestedTaskTemplate } =
         await this._suggestTaskTemplateUseCase.execute({
           accountId: sub,
+          playerId: sub,
           familyId,
           title,
           description,

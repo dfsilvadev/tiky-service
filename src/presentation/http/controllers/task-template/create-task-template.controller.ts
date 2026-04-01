@@ -2,6 +2,8 @@ import { type FastifyReply, type FastifyRequest } from "fastify";
 
 import { toHttpResponse } from "../../../../shared/utils/http-error-mapper";
 
+import { CheckAndGenerateTodayInstanceService } from "../../../../application/services/check-and-generate-today-instance.service";
+
 import { createTaskTemplateValidatorSchema } from "../../validators/create-task-template.validator";
 
 import { type CreateTaskTemplateUseCase } from "../../../../application/use-cases/task-template/create-task-template.use-case";
@@ -14,7 +16,8 @@ import {
 
 export class CreateTaskTemplateController implements IController {
   constructor(
-    private readonly _createTaskTemplateUseCase: CreateTaskTemplateUseCase
+    private readonly _createTaskTemplateUseCase: CreateTaskTemplateUseCase,
+    private readonly _checkAndGenerateTodayInstanceService: CheckAndGenerateTodayInstanceService
   ) {}
 
   async handler(request: FastifyRequest, reply: FastifyReply): Promise<void> {
@@ -31,6 +34,11 @@ export class CreateTaskTemplateController implements IController {
           accountId: sub,
           familyId: familySub
         });
+
+      await this._checkAndGenerateTodayInstanceService.execute({
+        template: createdTaskTemplate,
+        playerId: dto.playerId
+      });
 
       reply.status(HTTP_STATUS_SUCCESS.CREATED).send({
         statusCode: HTTP_STATUS_SUCCESS.CREATED,
