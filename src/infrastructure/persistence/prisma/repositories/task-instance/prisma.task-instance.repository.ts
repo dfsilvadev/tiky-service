@@ -1,12 +1,34 @@
 import { prismaClient } from "../../prisma-client";
 
-import { type ITaskInstanceRepository } from "../../../../../domain/repositories/task-instance.repository";
-import { type TaskInstance } from "../../../../../generated/prisma/client";
+import {
+  type ICreateTaskInstanceDTO,
+  type ITaskInstanceRepository
+} from "../../../../../domain/repositories/task-instance.repository";
+import {
+  InstanceStatus,
+  type TaskInstance
+} from "../../../../../generated/prisma/client";
 
 export class TaskInstanceRepository implements ITaskInstanceRepository {
-  async create(input: any): Promise<TaskInstance> {
+  async create(input: ICreateTaskInstanceDTO): Promise<TaskInstance> {
     const row = await prismaClient.taskInstance.create({
-      data: { ...input }
+      data: {
+        templateId: input.templateId,
+        playerId: input.playerId,
+        date: input.date,
+        ...(input.subtasks &&
+          input.subtasks.length > 0 && {
+            subtasks: {
+              create: input.subtasks.map((description) => ({
+                description,
+                status: InstanceStatus.PENDING
+              }))
+            }
+          })
+      },
+      include: {
+        subtasks: true
+      }
     });
 
     return row;

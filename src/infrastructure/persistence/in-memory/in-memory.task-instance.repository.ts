@@ -1,15 +1,19 @@
-import { type ITaskInstanceRepository } from "../../../domain/repositories/task-instance.repository";
+import {
+  type ICreateTaskInstanceDTO,
+  type ITaskInstanceRepository
+} from "../../../domain/repositories/task-instance.repository";
 
 import {
   InstanceStatus,
+  SubtaskInstance,
   type TaskInstance
 } from "../../../generated/prisma/client";
 
 export class InMemoryTaskInstanceRepository implements ITaskInstanceRepository {
   private taskInstances: TaskInstance[] = [];
 
-  async create(input: any): Promise<TaskInstance> {
-    const newTaskInstance: TaskInstance = {
+  async create(input: ICreateTaskInstanceDTO): Promise<TaskInstance> {
+    const newTaskInstance: TaskInstance & { subtasks?: SubtaskInstance[] } = {
       ...input,
       id: crypto.randomUUID(),
       status: InstanceStatus.PENDING,
@@ -17,8 +21,25 @@ export class InMemoryTaskInstanceRepository implements ITaskInstanceRepository {
       feedback: null,
       awardedXp: null,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      subtasks: []
     };
+
+    const generatedSubtasks: SubtaskInstance[] =
+      input.subtasks?.map((description: string) => ({
+        id: crypto.randomUUID(),
+        description,
+        taskInstanceId: newTaskInstance.id,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        status: InstanceStatus.PENDING,
+        proofImageUrl: null,
+        rejectedReason: null,
+        isDeleted: false,
+        deletedAt: null
+      })) || [];
+
+    newTaskInstance.subtasks = generatedSubtasks;
 
     this.taskInstances.push(newTaskInstance);
 
