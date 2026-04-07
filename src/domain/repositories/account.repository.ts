@@ -1,6 +1,6 @@
 import { type Account, type Role } from "../../generated/prisma/client";
 
-export interface IAccountCreateDTO {
+export interface IAccountCreateRepositoryDTO {
   readonly name: string;
   readonly email: string;
   readonly password: string;
@@ -11,5 +11,5 @@ export interface IAccountCreateDTO {
 export interface IAccountRepository {
   findById(_id: string): Promise<Account | null>;
   findByEmail(_email: string): Promise<Account | null>;
-  create(_input: IAccountCreateDTO): Promise<Account>;
+  create(_input: IAccountCreateRepositoryDTO): Promise<Account>;
 }

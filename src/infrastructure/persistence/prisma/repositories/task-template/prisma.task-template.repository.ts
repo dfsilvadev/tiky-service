@@ -4,7 +4,7 @@ import {
   type ICreateTaskTemplateDTO,
   type IFindAllTaskTemplatesQueryDTO,
   type ITaskTemplateRepository,
-  type IUpdateTaskTemplateDTO
+  type IUpdateTaskTemplateRepositoryDTO
 } from "../../../../../domain/repositories/task-template.repository";
 
 import {
@@ -25,7 +25,7 @@ export class TaskTemplateRepository implements ITaskTemplateRepository {
 
   async update(
     id: string,
-    input: IUpdateTaskTemplateDTO
+    input: IUpdateTaskTemplateRepositoryDTO
   ): Promise<TaskTemplate> {
     const row = await prismaClient.taskTemplate.update({
       where: { id },

@@ -2,7 +2,7 @@ import {
   type ICreateTaskTemplateDTO,
   type IFindAllTaskTemplatesQueryDTO,
   type ITaskTemplateRepository,
-  type IUpdateTaskTemplateDTO
+  type IUpdateTaskTemplateRepositoryDTO
 } from "../../../domain/repositories/task-template.repository";
 import { type TaskTemplate } from "../../../generated/prisma/client";
 
@@ -37,7 +37,7 @@ export class InMemoryTaskTemplateRepository implements ITaskTemplateRepository {
 
   async update(
     id: string,
-    input: IUpdateTaskTemplateDTO
+    input: IUpdateTaskTemplateRepositoryDTO
   ): Promise<TaskTemplate> {
     const index = this.taskTemplates.findIndex(
       (template) => template.id === id

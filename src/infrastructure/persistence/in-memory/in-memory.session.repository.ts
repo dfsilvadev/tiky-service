@@ -1,13 +1,13 @@
 import {
-  type ISessionRepository,
-  type ISessionRepositoryCreateData
+  type ICreateSessionRepositoryDTO,
+  type ISessionRepository
 } from "../../../domain/repositories/session.repository";
 import { type Session } from "../../../generated/prisma/client";
 
 export class InMemorySessionRepository implements ISessionRepository {
   private sessions: Session[] = [];
 
-  async create(_data: ISessionRepositoryCreateData): Promise<Session> {
+  async create(_data: ICreateSessionRepositoryDTO): Promise<Session> {
     const session: Session = {
       id: crypto.randomUUID(),
       userId: _data.userId,

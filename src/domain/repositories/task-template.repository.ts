@@ -30,7 +30,7 @@ export interface ICreateTaskTemplateDTO extends Omit<
   readonly status?: TemplateStatus;
 }
 
-export type IUpdateTaskTemplateDTO = Partial<
+export type IUpdateTaskTemplateRepositoryDTO = Partial<
   Omit<ICreateTaskTemplateDTO, "accountId" | "familyId">
 >;
 
@@ -43,7 +43,10 @@ export interface IFindAllTaskTemplatesQueryDTO {
 
 export interface ITaskTemplateRepository {
   create(_input: ICreateTaskTemplateDTO): Promise<TaskTemplate>;
-  update(_id: string, _input: IUpdateTaskTemplateDTO): Promise<TaskTemplate>;
+  update(
+    _id: string,
+    _input: IUpdateTaskTemplateRepositoryDTO
+  ): Promise<TaskTemplate>;
   delete(_id: string): Promise<TaskTemplate | null>;
   findManyByFamilyId(
     _familyId: string,
