@@ -11,17 +11,24 @@ import {
   Weight
 } from "../../../generated/prisma/client";
 
+import { IAccountRepository } from "../../../domain/repositories/account.repository";
+import { InMemoryAccountRepository } from "../../../infrastructure/persistence/in-memory/in-memory.account.repository";
 import { ERROR_MESSAGES } from "../../../shared/constants/error.constants";
 import { DUMMY_TASK_TEMPLATE } from "../../../shared/mocks/data.mocked";
 import { getXpByWeight } from "../../../shared/utils/get-xp-by-weight";
 
 let taskTemplateRepository: ITaskTemplateRepository;
+let accountRepository: IAccountRepository;
 let sut: UpdateTaskTemplateUseCase;
 
 describe("Update Task Template Use Case (Unit)", () => {
   beforeEach(() => {
     taskTemplateRepository = new InMemoryTaskTemplateRepository();
-    sut = new UpdateTaskTemplateUseCase(taskTemplateRepository);
+    accountRepository = new InMemoryAccountRepository();
+    sut = new UpdateTaskTemplateUseCase(
+      taskTemplateRepository,
+      accountRepository
+    );
   });
 
   afterEach(() => {
@@ -38,7 +45,8 @@ describe("Update Task Template Use Case (Unit)", () => {
       title: "Updated Test Task",
       description: "An updated task for testing",
       weight: Weight.BASIC,
-      recurrenceType: RecurrenceType.DAILY
+      recurrenceType: RecurrenceType.DAILY,
+      accountId: DUMMY_TASK_TEMPLATE.accountId
     };
 
     const { updatedTaskTemplate } = await sut.execute(
@@ -61,9 +69,10 @@ describe("Update Task Template Use Case (Unit)", () => {
   });
 
   it("should throw ResourceNotFoundError if task template does not exist", async () => {
-    await expect(
+    return await expect(
       sut.execute("non-existent-id", "family-id", {
-        title: "Should Fail"
+        title: "Should Fail",
+        accountId: ""
       })
     ).rejects.toThrow(ERROR_MESSAGES.RESOURCE_NOT_FOUND);
   });
@@ -80,7 +89,8 @@ describe("Update Task Template Use Case (Unit)", () => {
       createdTemplate.id,
       createdTemplate.familyId,
       {
-        weight: updatedWeight
+        weight: updatedWeight,
+        accountId: DUMMY_TASK_TEMPLATE.accountId
       }
     );
 
@@ -97,7 +107,8 @@ describe("Update Task Template Use Case (Unit)", () => {
       createdTemplate.id,
       createdTemplate.familyId,
       {
-        status: TemplateStatus.ARCHIVED
+        status: TemplateStatus.ARCHIVED,
+        accountId: DUMMY_TASK_TEMPLATE.accountId
       }
     );
 

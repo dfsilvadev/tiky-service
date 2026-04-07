@@ -8,7 +8,8 @@ export interface ICreateTaskInstanceDTO {
 }
 
 export interface ITaskInstanceRepository {
-  create(_input: any): Promise<TaskInstance>;
+  create(_input: ICreateTaskInstanceDTO): Promise<TaskInstance>;
+  delete(_id: string): Promise<void>;
   findOneById(_id: string): Promise<TaskInstance | null>;
   findByTemplateAndDate(
     _templateId: string,

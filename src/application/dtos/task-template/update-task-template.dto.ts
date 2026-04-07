@@ -7,6 +7,8 @@ import {
 export interface IUpdateTaskTemplateDTO {
   readonly title?: string;
   readonly description?: string | null;
+  readonly accountId: string;
+  readonly playerId?: string;
   readonly weight?: Weight;
   readonly status?: TemplateStatus;
   readonly recurrenceType?: RecurrenceType;

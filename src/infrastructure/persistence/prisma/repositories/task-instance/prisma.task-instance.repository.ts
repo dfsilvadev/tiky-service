@@ -34,6 +34,14 @@ export class TaskInstanceRepository implements ITaskInstanceRepository {
     return row;
   }
 
+  async delete(id: string): Promise<void> {
+    await prismaClient.taskInstance.delete({
+      where: {
+        id
+      }
+    });
+  }
+
   findOneById(_id: string): Promise<TaskInstance | null> {
     throw new Error("Method not implemented.");
   }

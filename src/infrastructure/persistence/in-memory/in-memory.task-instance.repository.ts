@@ -46,7 +46,19 @@ export class InMemoryTaskInstanceRepository implements ITaskInstanceRepository {
     return newTaskInstance;
   }
 
-  findOneById(_id: string): Promise<TaskInstance | null> {
+  async delete(id: string): Promise<void> {
+    const taskInstanceIndex = this.taskInstances.findIndex(
+      (instance) => instance.id === id
+    );
+
+    if (taskInstanceIndex === -1) {
+      throw new Error("Task instance not found");
+    }
+
+    this.taskInstances.splice(taskInstanceIndex, 1);
+  }
+
+  async findOneById(_id: string): Promise<TaskInstance | null> {
     throw new Error("Method not implemented.");
   }
 
