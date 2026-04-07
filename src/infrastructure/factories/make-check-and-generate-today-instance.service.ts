@@ -5,7 +5,9 @@ import { makeTaskInstanceRepository } from "./make-task-instance.repository";
 
 export function makeCheckAndGenerateTodayInstanceService() {
   const taskInstanceRepository = makeTaskInstanceRepository();
-  const createTaskInstanceUseCase = makeCreateTaskInstanceUseCase();
+  const createTaskInstanceUseCase = makeCreateTaskInstanceUseCase(
+    taskInstanceRepository
+  );
 
   return new CheckAndGenerateTodayInstanceService(
     taskInstanceRepository,

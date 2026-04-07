@@ -3,7 +3,10 @@ import dayjs from "dayjs";
 import { CreateTaskInstanceUseCase } from "../../application/use-cases/task-instance/create-task-instance.use-case";
 
 import { type ITaskInstanceRepository } from "../../domain/repositories/task-instance.repository";
-import { type TaskTemplate } from "../../generated/prisma/client";
+import {
+  RecurrenceType,
+  type TaskTemplate
+} from "../../generated/prisma/client";
 
 export interface ICheckAndGenerateTodayInstanceServiceDTO {
   readonly template: TaskTemplate;
@@ -20,20 +23,21 @@ export class CheckAndGenerateTodayInstanceService {
     template,
     playerId
   }: ICheckAndGenerateTodayInstanceServiceDTO) {
-    const todayDateOnly = dayjs().startOf("day").toDate();
+    const DAY_UNIT = "day";
+    const todayDateOnly = dayjs().startOf(DAY_UNIT).toDate();
     let shouldGenerateToday = false;
 
-    if (template.recurrenceType === "DAILY") {
+    if (template.recurrenceType === RecurrenceType.DAILY) {
       shouldGenerateToday = true;
-    } else if (template.recurrenceType === "ONCE") {
+    } else if (template.recurrenceType === RecurrenceType.ONCE) {
       if (
         !template.scheduledFor ||
-        dayjs(template.scheduledFor).isSame(todayDateOnly, "day")
+        dayjs(template.scheduledFor).isSame(todayDateOnly, DAY_UNIT)
       ) {
         shouldGenerateToday = true;
       }
     } else if (
-      template.recurrenceType === "WEEKLY" &&
+      template.recurrenceType === RecurrenceType.WEEKLY &&
       template.recurrencePattern
     ) {
       const currentDayOfWeek = todayDateOnly.getDay().toString();

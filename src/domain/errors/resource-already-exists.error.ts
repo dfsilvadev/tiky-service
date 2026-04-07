@@ -4,7 +4,7 @@ import {
 } from "../../shared/constants/error.constants";
 import { AppError } from "./app.error";
 
-export class ResourceAlreadyExists extends AppError {
+export class ResourceAlreadyExistsError extends AppError {
   constructor(templateId: string, message: string) {
     super(
       message,
