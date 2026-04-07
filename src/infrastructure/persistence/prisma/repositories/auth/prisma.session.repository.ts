@@ -1,13 +1,13 @@
 import { prismaClient } from "../../prisma-client";
 
 import {
-  type ISessionRepository,
-  type ISessionRepositoryCreateData
+  type ICreateSessionRepositoryDTO,
+  type ISessionRepository
 } from "../../../../../domain/repositories/session.repository";
 import { type Session } from "../../../../../generated/prisma/client";
 
 export class SessionRepository implements ISessionRepository {
-  async create(data: ISessionRepositoryCreateData): Promise<Session> {
+  async create(data: ICreateSessionRepositoryDTO): Promise<Session> {
     const row = await prismaClient.session.create({
       data: {
         ...data,

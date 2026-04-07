@@ -1,15 +1,15 @@
 import {
-  type IFamilyCreateDTO,
-  type IFamilyFindAllDTO,
+  type IFamilyCreateRepositoryDTO,
+  type IFamilyFindAllRepositoryDTO,
   type IFamilyRepository,
-  type IFamilyUpdateDTO
+  type IFamilyUpdateRepositoryDTO
 } from "../../../domain/repositories/family.repository";
 import { type Family } from "../../../generated/prisma/client";
 
 export class InMemoryFamilyRepository implements IFamilyRepository {
   private family: Family[] = [];
 
-  async create(input: IFamilyCreateDTO): Promise<Family> {
+  async create(input: IFamilyCreateRepositoryDTO): Promise<Family> {
     const newFamily: Family = {
       id: crypto.randomUUID(),
       name: input.name,
@@ -33,7 +33,7 @@ export class InMemoryFamilyRepository implements IFamilyRepository {
     sort = "asc",
     page = 1,
     limit = 20
-  }: IFamilyFindAllDTO): Promise<Family[]> {
+  }: IFamilyFindAllRepositoryDTO): Promise<Family[]> {
     const sortedFamily = [...this.family].sort((a, b) => {
       if (sort === "asc") {
         return a.createdAt.getTime() - b.createdAt.getTime();
@@ -48,7 +48,7 @@ export class InMemoryFamilyRepository implements IFamilyRepository {
     return paginatedFamily.filter((f) => f.status === "ACTIVE");
   }
 
-  update(id: string, input: IFamilyUpdateDTO): Promise<Family> {
+  update(id: string, input: IFamilyUpdateRepositoryDTO): Promise<Family> {
     const familyIndex = this.family.findIndex((f) => f.id === id);
 
     if (familyIndex === -1) throw new Error("Family not found");

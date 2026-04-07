@@ -1,7 +1,7 @@
 import { prismaClient } from "../../prisma-client";
 
 import {
-  type ICreateTaskInstanceDTO,
+  type ICreateTaskInstanceRepositoryDTO,
   type ITaskInstanceRepository
 } from "../../../../../domain/repositories/task-instance.repository";
 import {
@@ -10,7 +10,7 @@ import {
 } from "../../../../../generated/prisma/client";
 
 export class TaskInstanceRepository implements ITaskInstanceRepository {
-  async create(input: ICreateTaskInstanceDTO): Promise<TaskInstance> {
+  async create(input: ICreateTaskInstanceRepositoryDTO): Promise<TaskInstance> {
     const row = await prismaClient.taskInstance.create({
       data: {
         templateId: input.templateId,

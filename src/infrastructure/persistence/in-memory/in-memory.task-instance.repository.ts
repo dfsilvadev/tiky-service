@@ -1,5 +1,5 @@
 import {
-  type ICreateTaskInstanceDTO,
+  type ICreateTaskInstanceRepositoryDTO,
   type ITaskInstanceRepository
 } from "../../../domain/repositories/task-instance.repository";
 
@@ -12,7 +12,7 @@ import {
 export class InMemoryTaskInstanceRepository implements ITaskInstanceRepository {
   private taskInstances: TaskInstance[] = [];
 
-  async create(input: ICreateTaskInstanceDTO): Promise<TaskInstance> {
+  async create(input: ICreateTaskInstanceRepositoryDTO): Promise<TaskInstance> {
     const newTaskInstance: TaskInstance & { subtasks?: SubtaskInstance[] } = {
       ...input,
       id: crypto.randomUUID(),

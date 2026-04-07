@@ -1,6 +1,6 @@
 import { type TaskInstance } from "../../generated/prisma/client";
 
-export interface ICreateTaskInstanceDTO {
+export interface ICreateTaskInstanceRepositoryDTO {
   readonly templateId: string;
   readonly playerId: string;
   readonly date: Date;
@@ -8,7 +8,7 @@ export interface ICreateTaskInstanceDTO {
 }
 
 export interface ITaskInstanceRepository {
-  create(_input: ICreateTaskInstanceDTO): Promise<TaskInstance>;
+  create(_input: ICreateTaskInstanceRepositoryDTO): Promise<TaskInstance>;
   delete(_id: string): Promise<void>;
   findOneById(_id: string): Promise<TaskInstance | null>;
   findByTemplateAndDate(

@@ -1,15 +1,15 @@
 import { prismaClient } from "../../prisma-client";
 
 import {
-  type IFamilyCreateDTO,
-  type IFamilyFindAllDTO,
+  type IFamilyCreateRepositoryDTO,
+  type IFamilyFindAllRepositoryDTO,
   type IFamilyRepository,
-  type IFamilyUpdateDTO
+  type IFamilyUpdateRepositoryDTO
 } from "../../../../../domain/repositories/family.repository";
 import { type Family } from "../../../../../generated/prisma/client";
 
 export class PrismaFamilyRepository implements IFamilyRepository {
-  async create(input: IFamilyCreateDTO): Promise<Family> {
+  async create(input: IFamilyCreateRepositoryDTO): Promise<Family> {
     const row = await prismaClient.family.create({
       data: {
         name: input.name,
@@ -32,7 +32,7 @@ export class PrismaFamilyRepository implements IFamilyRepository {
     sort = "asc",
     page = 1,
     limit = 20
-  }: IFamilyFindAllDTO): Promise<Family[]> {
+  }: IFamilyFindAllRepositoryDTO): Promise<Family[]> {
     const rows = await prismaClient.family.findMany({
       where: { deletedAt: null, status: "ACTIVE" },
       orderBy: { createdAt: sort },
@@ -43,7 +43,7 @@ export class PrismaFamilyRepository implements IFamilyRepository {
     return rows;
   }
 
-  async update(id: string, input: IFamilyUpdateDTO): Promise<Family> {
+  async update(id: string, input: IFamilyUpdateRepositoryDTO): Promise<Family> {
     const row = await prismaClient.family.update({
       where: { id },
       data: {
