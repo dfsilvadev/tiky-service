@@ -27,10 +27,7 @@ export class UpdateTaskTemplateController implements IController {
 
   async handler(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const {
-        sub,
-        account: { familySub: familyId }
-      } = request.user;
+      const { familySub: familyId } = request.user.account;
       const { id } = updateTaskTemplateParamsValidatorSchema.parse(
         request.params
       );
@@ -38,8 +35,7 @@ export class UpdateTaskTemplateController implements IController {
 
       const { updatedTaskTemplate } =
         await this._updateTaskTemplateUseCase.execute(id, familyId, {
-          ...dto,
-          accountId: sub
+          ...dto
         });
 
       await this._deletePendingTodayInstanceUseCase.execute({

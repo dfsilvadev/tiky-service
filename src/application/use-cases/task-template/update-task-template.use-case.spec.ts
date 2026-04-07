@@ -71,8 +71,7 @@ describe("Update Task Template Use Case (Unit)", () => {
   it("should throw ResourceNotFoundError if task template does not exist", async () => {
     return await expect(
       sut.execute("non-existent-id", "family-id", {
-        title: "Should Fail",
-        accountId: ""
+        title: "Should Fail"
       })
     ).rejects.toThrow(ERROR_MESSAGES.RESOURCE_NOT_FOUND);
   });
@@ -89,8 +88,7 @@ describe("Update Task Template Use Case (Unit)", () => {
       createdTemplate.id,
       createdTemplate.familyId,
       {
-        weight: updatedWeight,
-        accountId: DUMMY_TASK_TEMPLATE.accountId
+        weight: updatedWeight
       }
     );
 
@@ -107,8 +105,7 @@ describe("Update Task Template Use Case (Unit)", () => {
       createdTemplate.id,
       createdTemplate.familyId,
       {
-        status: TemplateStatus.ARCHIVED,
-        accountId: DUMMY_TASK_TEMPLATE.accountId
+        status: TemplateStatus.ARCHIVED
       }
     );
 
