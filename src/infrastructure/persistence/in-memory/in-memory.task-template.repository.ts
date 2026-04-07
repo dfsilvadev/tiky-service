@@ -15,6 +15,7 @@ export class InMemoryTaskTemplateRepository implements ITaskTemplateRepository {
       title: input.title,
       description: input.description ?? null,
       accountId: input.accountId,
+      playerId: input.playerId,
       familyId: input.familyId,
       baseXp: input.baseXp,
       status: input.status ?? "ACTIVE",

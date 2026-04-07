@@ -40,10 +40,11 @@ const DUMMY_FAMILY = {
 
 const DUMMY_BODY_TASK_TEMPLATE = {
   accountId: "dummy-account-id",
+  playerId: "149488b6-e946-4d00-b6e7-5c7c5a6b51bc",
   familyId: "dummy-family-id",
-  recurrenceType: RecurrenceType.WEEKLY,
+  recurrenceType: RecurrenceType.ONCE,
   isMandatory: true,
-  timeLimit: "18:00",
+  timeLimit: "",
   subtasks: []
 };
 
@@ -52,7 +53,7 @@ const DUMMY_TASK_TEMPLATE = {
   title: "Sample Task Template",
   description: "This is a sample task template for testing purposes.",
   weight: Weight.IMPORTANT,
-  recurrencePattern: "1,3,5", // Every Monday, Wednesday, and Friday
+  recurrencePattern: "",
   scheduledFor: new Date()
 };
 
@@ -64,6 +65,16 @@ const DUMMY_SUGGESTED_TASK_TEMPLATE = {
   status: TemplateStatus.PENDING_APPROVAL
 };
 
+/**
+ * These DUMMY_* constants represent sample data from task instances
+ */
+
+const DUMMY_TASK_INSTANCE = {
+  templateId: "dummy-template-id",
+  playerId: "dummy-player-id",
+  date: new Date()
+};
+
 // Exporting all dummy data constants for use in tests and other parts of the application
 export {
   DUMMY_ACCOUNT,
@@ -72,5 +83,6 @@ export {
   DUMMY_HASH,
   DUMMY_PASS_VALUE,
   DUMMY_SUGGESTED_TASK_TEMPLATE,
+  DUMMY_TASK_INSTANCE,
   DUMMY_TASK_TEMPLATE
 };

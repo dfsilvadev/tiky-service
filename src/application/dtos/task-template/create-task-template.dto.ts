@@ -4,6 +4,7 @@ export interface ICreateTaskTemplateDTO {
   readonly title: string;
   readonly description?: string | undefined;
   readonly accountId: string;
+  readonly playerId: string;
   readonly familyId: string;
   readonly weight: Weight;
   readonly recurrenceType: RecurrenceType;

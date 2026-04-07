@@ -5,6 +5,7 @@ import { RecurrenceType, Weight } from "../../../generated/prisma/client";
 export const createTaskTemplateValidatorSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters long"),
   description: z.string().optional(),
+  playerId: z.uuid(),
   weight: z.enum(Weight),
   isMandatory: z.boolean().default(true),
   recurrenceType: z.enum(RecurrenceType),
